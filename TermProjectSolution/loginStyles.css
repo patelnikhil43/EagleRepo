@@ -1,0 +1,35 @@
+﻿body {
+    background-color: darkslateblue;
+}
+
+#SignInDiv {
+    width: 25%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.lblLoginPrompt {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.txtLogin {
+    border-radius: 5px;
+    width: 65%;
+    font-size: 16px;
+}
+
+.btnLogin {
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: darkslateblue;
+    border-color: darkslateblue;
+    color: white;
+    width: 20%;
+    padding: 5px;
+}

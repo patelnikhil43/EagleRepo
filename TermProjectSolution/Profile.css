@@ -1,0 +1,23 @@
+﻿body {
+}
+
+#UserNameDiv, #UserProfileImageDiv {
+    text-align: center;
+}
+
+#UserProfileImage {
+    width: 250px;
+    height: 250px;
+}
+
+#ProfileImageUpload {
+    margin: 0 auto;
+}
+
+#UserProfileTable {
+    margin: 0 auto;
+}
+
+#UserProfileTable {
+    padding: 10px;
+}

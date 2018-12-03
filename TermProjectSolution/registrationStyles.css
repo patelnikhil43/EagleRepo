@@ -1,0 +1,43 @@
+﻿body {
+    background-color: darkslateblue;
+}
+
+#RegisterUserDetails {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#PrivacyQuestionsDiv {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#PreferencesDiv {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#PreferencesDiv {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
