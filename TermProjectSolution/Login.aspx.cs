@@ -215,9 +215,14 @@ namespace TermProjectSolution
                         
                     }
                     //i dont think i need this
-                    HttpCookie emailCookie = new HttpCookie("EmailCookie");
-                    emailCookie.Values["Email"] = txtEmail.Text;
-                    Response.Cookies.Add(emailCookie);
+                    //HttpCookie emailCookie = new HttpCookie("EmailCookie");
+                    //emailCookie.Values["Email"] = txtEmail.Text;
+                    //Response.Cookies.Add(emailCookie);
+                    objCommand.CommandText = "TPUpdateStatusLogin";
+                    objCommand.Parameters.Clear();
+                    objCommand.Parameters.AddWithValue("@theUserEmail", txtEmail.Text);
+
+                    objDB.DoUpdateUsingCmdObj(objCommand);
                     Response.Redirect("Feed.aspx");
                 }
                 else

@@ -33,6 +33,9 @@
         </div>
     </nav>
     <form id="form1" runat="server">
+        <div>
+            <asp:Button ID="btnLogOut" runat="server" Text="Log Out" OnClick="btnLogOut_Click" />
+        </div>
     </form>
 </body>
 </html>
