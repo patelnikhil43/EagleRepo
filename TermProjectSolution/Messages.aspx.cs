@@ -17,6 +17,16 @@ namespace TermProjectSolution
         protected void Page_Load(object sender, EventArgs e)
         {
             //getfriends and load into gridview
+            //objCommand.CommandType = CommandType.StoredProcedure;
+            //objCommand.CommandText = "TPGetFriendsOnline";
+            //objCommand.Parameters.Clear();
+
+            //objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+
+
+            //gvFriendsOnline.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
+            //gvFriendsOnline.DataBind();
+            //gvFriendsOnline.Visible = true;
         }
 
         public void LoadMessages()
@@ -47,6 +57,20 @@ namespace TermProjectSolution
                     Form.Controls.Add(messageBox);
                 }
             }
+        }
+
+        protected void btnGetFriendsOnline_Click(object sender, EventArgs e)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPGetFriendsOnline";
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+
+
+            gvFriendsOnline.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
+            gvFriendsOnline.DataBind();
+            gvFriendsOnline.Visible = true;
         }
 
         protected void btnSend_Click(object sender, EventArgs e)

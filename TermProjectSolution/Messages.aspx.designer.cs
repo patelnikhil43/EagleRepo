@@ -22,13 +22,13 @@ namespace TermProjectSolution {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// gvFriends control.
+        /// gvFriendsOnline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvFriends;
+        protected global::System.Web.UI.WebControls.GridView gvFriendsOnline;
         
         /// <summary>
         /// lblSendMessage control.
@@ -92,5 +92,14 @@ namespace TermProjectSolution {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetMessages;
+        
+        /// <summary>
+        /// btnGetFriendsOnline control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGetFriendsOnline;
     }
 }

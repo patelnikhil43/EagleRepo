@@ -10,7 +10,7 @@
     <form id="form1" runat="server">
         <div id="friendsContainer">
                 <%--use a custom user control here?--%>
-                <asp:GridView ID="gvFriends" runat="server" AutoGenerateColumns="false" Visible="False">
+                <asp:GridView ID="gvFriendsOnline" runat="server" AutoGenerateColumns="false" Visible="False">
                     <Columns>
                         <asp:BoundField DataField="name" HeaderText="Name" />
                         <asp:BoundField DataField="email" HeaderText="Email" />
@@ -48,6 +48,8 @@
             <asp:Button ID="btnSend" runat="server" Text="Send" OnClick="btnSend_Click" />
             <br />
             <asp:Button ID="btnGetMessages" runat="server" Text="Get Messages" OnClick="btnGetMessages_Click" />
+            <br />
+            <asp:Button ID="btnGetFriendsOnline" runat="server" Text="View Friends Online" OnClick="btnGetFriendsOnline_Click" />
             <br />
         </div>
     </form>
