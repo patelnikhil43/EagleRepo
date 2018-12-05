@@ -36,7 +36,16 @@ namespace TermProjectSolution
                 gvSearchResults.DataBind();
                 for(int i = 0; i < mySearchResults.Tables[0].Rows.Count; i++)
                 {
-                    
+                    String profilePicURL = mySearchResults.Tables[0].Rows[i][1].ToString();
+                    try
+                    {
+                        
+                        //imgProfilePic.src = profilePicURL;
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
                 }
                 gvSearchResults.Visible = true;
             }

@@ -27,7 +27,7 @@
                         <asp:BoundField DataField="organization" HeaderText="Organization" />
                         <asp:TemplateField HeaderText="Profile Picture">
                             <ItemTemplate>
-                                <asp:Image ID="imgProfilePic" runat="server" />
+                                <asp:Image ID="imgProfilePic" CssClass="imgProfilePic" runat="server" src="https://upload.wikimedia.org/wikipedia/commons/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Send Request">
