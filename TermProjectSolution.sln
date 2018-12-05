@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TermProjectSolution", "Term
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{937FA9E4-D980-46E4-B470-2C48DD25AA1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPWebApi", "TPWebApi\TPWebApi.csproj", "{805846E5-8754-434C-B144-2A23E6B41743}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{937FA9E4-D980-46E4-B470-2C48DD25AA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{937FA9E4-D980-46E4-B470-2C48DD25AA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{937FA9E4-D980-46E4-B470-2C48DD25AA1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{805846E5-8754-434C-B144-2A23E6B41743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805846E5-8754-434C-B144-2A23E6B41743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805846E5-8754-434C-B144-2A23E6B41743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805846E5-8754-434C-B144-2A23E6B41743}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

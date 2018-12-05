@@ -15,7 +15,7 @@ using Utilities;
 
 namespace TermProjectSolution
 {
-    public partial class Profile : System.Web.UI.Page
+    public partial class UserProfile : System.Web.UI.Page
     {
         private Byte[] key = { 250, 101, 18, 76, 45, 135, 207, 118, 4, 171, 3, 168, 202, 241, 37, 199 };
         private Byte[] vector = { 146, 64, 191, 111, 23, 3, 113, 119, 231, 121, 252, 112, 79, 32, 114, 156 };
@@ -126,7 +126,7 @@ namespace TermProjectSolution
 
             DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
             String url = UserInfoDataSet.Tables[0].Rows[0]["profilePicURL"].ToString();
-            if (url == "")
+            if (url == "NULL")
             {
                 UserProfileImage.ImageUrl = "../Storage/default-profile.png";
             }
@@ -261,7 +261,7 @@ namespace TermProjectSolution
             }
         }
 
-       
+   
 
         void SetFriendList()
         {
@@ -319,7 +319,7 @@ namespace TermProjectSolution
                 Stream theDataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(theDataStream);
                 String data = reader.ReadToEnd();
-          
+
                 reader.Close();
                 response.Close();
 
@@ -335,14 +335,6 @@ namespace TermProjectSolution
             {
                 Response.Write(errorEx.Message);
             }
-        }
-
-        protected void FriendListGV_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            int index = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = FriendListGV.Rows[index];
-            var name = row.Cells[1].Text;
-            Response.Write(name);
         }
     }
 }
