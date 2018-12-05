@@ -58,7 +58,6 @@ namespace TermProjectSolution
                     Form.Controls.Add(messageBox);
                 }
             }
-            lblConversation.Text = "Conversation with " + txtEmail.Text;
         }
 
         protected void getFriendsOnline()

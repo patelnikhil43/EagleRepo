@@ -57,32 +57,29 @@ namespace TermProjectSolution
             GridViewRow gvr = (GridViewRow)btnRequest.NamingContainer;
             //from here send the info into the friend requests table
             //should be able to get the user email from the session object
-            if (Request.Cookies["EmailCookie"] != null)
+
+            //HttpCookie myCookie = Request.Cookies["EmailCookie"];
+            String userEmail = Session["userEmail"].ToString();
+            String friendEmail = gvr.Cells[1].Text;
+            if (userEmail.Equals(friendEmail))
             {
-                //HttpCookie myCookie = Request.Cookies["EmailCookie"];
-                String userEmail = Session["userEmail"].ToString();
-                String friendEmail = gvr.Cells[1].Text;
-                if (userEmail.Equals(friendEmail))
-                {
-                    Response.Write("You cannot request yourself as a friend!");
-                }
-                else
-                {
-                    Response.Write("User email: " + userEmail + " Friend Email " + friendEmail);
-                    //insert Friend request record
-                    objCommand.CommandType = CommandType.StoredProcedure;
-                    objCommand.CommandText = "TPInsertFriendRequest";
-                    objCommand.Parameters.Clear();
+                Response.Write("You cannot request yourself as a friend!");
+            }
+            else
+            {
+                Response.Write("User email: " + userEmail + " Friend Email " + friendEmail);
+                //insert Friend request record
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPInsertFriendRequest";
+                objCommand.Parameters.Clear();
 
-                    objCommand.Parameters.AddWithValue("@theUserEmail", userEmail);
-                    objCommand.Parameters.AddWithValue("@theFriendEmail", friendEmail);
-                    objCommand.Parameters.AddWithValue("@theRequestDate", System.DateTime.Now);
+                objCommand.Parameters.AddWithValue("@theUserEmail", userEmail);
+                objCommand.Parameters.AddWithValue("@theFriendEmail", friendEmail);
+                objCommand.Parameters.AddWithValue("@theRequestDate", System.DateTime.Now);
 
-                    int retVal = objDB.DoUpdateUsingCmdObj(objCommand);
+                int retVal = objDB.DoUpdateUsingCmdObj(objCommand);
 
-                    Response.Write("Update returned: " + retVal);
-                }
-                
+                Response.Write("Update returned: " + retVal);
             }
         }
 
