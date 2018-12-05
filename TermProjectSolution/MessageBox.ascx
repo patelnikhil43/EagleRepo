@@ -1,13 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MessageBox.ascx.cs" Inherits="TermProjectSolution.MessageBox" %>
 
 <style>
-    #messageContainer {
+    #messageBox {
         background-color: dodgerblue;
         color: white;
         border-radius: 5px;
         padding: 5px;
         box-sizing: border-box;
-        margin-top: 5px;
+        width: 80%;
+        margin: auto;
+        border: 1px solid grey;
     }
     .btnDelete{
         background-color: red;
@@ -17,13 +19,13 @@
     }
 </style>
 
-<div id="messageContainer">
+<div id="messageBox">
     <div style="float: right;">
         <asp:Button ID="btnDelete" CssClass="btnDelete" runat="server" Text="X" OnClick="btnDelete_Click" />
     </div>
     <div style="float: none;"></div>
     <br />
-    <asp:Label ID="lblSender" runat="server"></asp:Label>
+    <asp:Label ID="lblSender" Text="From: " runat="server"></asp:Label>
     <br />
     <div style="float: left; width: 85%;">
         <asp:Label ID="lblMessageBody" runat="server"></asp:Label>

@@ -26,7 +26,7 @@ namespace TermProjectSolution
         {
             //need to load in all friend requests that have not been accepted or rejected
             String userEmail = Session["userEmail"].ToString();
-            lblMessage.Text = userEmail;
+            
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPGetFriendRequests";
             objCommand.Parameters.Clear();
@@ -37,7 +37,7 @@ namespace TermProjectSolution
 
             if (myFriendRequests.Tables[0].Rows.Count > 0)
             {
-                lblMessage.Text = myFriendRequests.Tables[0].Rows[0][0].ToString();
+                
                 //for loop gets rid of friend requests that have been accepted or rejected
                 for (int i = 0; i < myFriendRequests.Tables[0].Rows.Count; i++)
                 {
@@ -113,6 +113,11 @@ namespace TermProjectSolution
             objCommand.Parameters.AddWithValue("@theFriendEmail", Session["userEmail"].ToString());
 
             objDB.DoUpdateUsingCmdObj(objCommand);
+            getFriendRequests();
+        }
+
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
             getFriendRequests();
         }
     }

@@ -1,0 +1,43 @@
+﻿body {
+    background-color: #bbbbbb !important;
+}
+#messageContainer {
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+#friendsContainer {
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.btnFB {
+    color: black;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.lblTitle {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.gvFriendsOnline tr th {
+    padding: 5px;
+}
+
+.gvFriendsOnline tr td {
+    padding: 5px;
+}
+
+.txtMessage {
+    width: 100%;
+}

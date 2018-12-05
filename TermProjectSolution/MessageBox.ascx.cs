@@ -29,7 +29,7 @@ namespace TermProjectSolution
 
         public void DataBind(Message msg)
         {
-            lblSender.Text = msg.UserEmail;
+            lblSender.Text += msg.UserEmail;
             lblMessageBody.Text = msg.MessageBody;
             lblMessageDate.Text = msg.MessageDate.ToString();
             lblMessageID.Text = msg.MessageID.ToString();

@@ -19,15 +19,15 @@ namespace TermProjectSolution
         {
             //getfriends and load into gridview
             //objCommand.CommandType = CommandType.StoredProcedure;
-            //objCommand.CommandText = "TPGetFriendsOnline";
+            //objCommand.CommandText = "TPGetConversations";
             //objCommand.Parameters.Clear();
 
             //objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
 
-
             //gvFriendsOnline.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
             //gvFriendsOnline.DataBind();
             //gvFriendsOnline.Visible = true;
+            getFriendsOnline();
         }
 
         public void LoadMessages()
@@ -58,9 +58,10 @@ namespace TermProjectSolution
                     Form.Controls.Add(messageBox);
                 }
             }
+            lblConversation.Text = "Conversation with " + txtEmail.Text;
         }
 
-        protected void btnGetFriendsOnline_Click(object sender, EventArgs e)
+        protected void getFriendsOnline()
         {
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPGetFriendsOnline";
@@ -72,6 +73,15 @@ namespace TermProjectSolution
             gvFriendsOnline.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
             gvFriendsOnline.DataBind();
             gvFriendsOnline.Visible = true;
+            if(gvFriendsOnline.Rows.Count == 0)
+            {
+                lblNoMessages.Text = "You have no friends currently online.";
+            }
+        }
+
+        protected void btnGetFriendsOnline_Click(object sender, EventArgs e)
+        {
+            getFriendsOnline();
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
@@ -120,26 +130,6 @@ namespace TermProjectSolution
                 if (retVal == 1)
                 {
                     lblSendMessage.Text = "Message sent to " + txtEmail.Text;
-                    //now get all messages
-                    //objCommand.CommandType = CommandType.StoredProcedure;
-                    //objCommand.CommandText = "TPGetMessages";
-                    //objCommand.Parameters.Clear();
-
-                    //objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
-                    //objCommand.Parameters.AddWithValue("@theFriendEmail", txtEmail.Text);
-
-                    //DataSet myMessages = objDB.GetDataSetUsingCmdObj(objCommand);
-
-                    //if(myMessages.Tables[0].Rows.Count > 0)
-                    //{
-                    //    for(int i = 0; i < myMessages.Tables[0].Rows.Count; i++)
-                    //    {
-                    //        MessageBox messageBox = (MessageBox)LoadControl("MessageBox.ascx");
-                    //        messageBox.DataBind();
-
-                    //        Form.Controls.Add(messageBox);
-                    //    }
-                    //}
                     LoadMessages();
                 }
                 else
@@ -152,6 +142,16 @@ namespace TermProjectSolution
         protected void btnGetMessages_Click(object sender, EventArgs e)
         {
             Session.Add("friendEmail", txtEmail.Text);
+            LoadMessages();
+        }
+
+        protected void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            Button btnSendMessage = (Button)sender;
+            GridViewRow gvr = (GridViewRow)btnSendMessage.NamingContainer;
+
+            String friendEmail = gvr.Cells[1].Text;
+            txtEmail.Text = friendEmail;
             LoadMessages();
         }
     }
