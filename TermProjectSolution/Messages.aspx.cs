@@ -12,6 +12,7 @@ namespace TermProjectSolution
 {
     public partial class Messages : System.Web.UI.Page
     {
+        //need to figure out how to get friends that are online
         DBConnect objDB = new DBConnect();
         SqlCommand objCommand = new SqlCommand();
         protected void Page_Load(object sender, EventArgs e)
