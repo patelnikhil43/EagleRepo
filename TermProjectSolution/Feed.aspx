@@ -29,6 +29,7 @@
                 <li><a href="Preferences.aspx">Preferences</a></li>
                 <li><a href="FriendRequests.aspx">Friend Requests</a></li>
                 <li><a href="Messages.aspx">Messages</a></li>
+                <li><a href="Profile.aspx">My Profile</a></li>
             </ul>
         </div>
     </nav>

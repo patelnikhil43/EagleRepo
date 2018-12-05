@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -15,9 +17,48 @@ namespace TermProjectSolution
 {
     public partial class Profile : System.Web.UI.Page
     {
+        private Byte[] key = { 250, 101, 18, 76, 45, 135, 207, 118, 4, 171, 3, 168, 202, 241, 37, 199 };
+        private Byte[] vector = { 146, 64, 191, 111, 23, 3, 113, 119, 231, 121, 252, 112, 79, 32, 114, 156 };
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Decoder
+            HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            //txtEmail.Text = myCookie.Values["Email"];
+            //txtPassword.Text = myCookie.Values["Password"];
+            String encryptedEmail = myCookie.Values["Email"];
 
+            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            Byte[] emailBytes;
+            String plainTextEmail;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+            MemoryStream memStream = new MemoryStream();
+            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+
+            //Email
+            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            decryptionStream.FlushFinalBlock();
+
+            memStream.Position = 0;
+            emailBytes = new Byte[memStream.Length];
+            memStream.Read(emailBytes, 0, emailBytes.Length);
+
+            decryptionStream.Close();
+            memStream.Close();
+
+            plainTextEmail = encoder.GetString(emailBytes);
+            String email = plainTextEmail;
+
+            //End of Decoder
+
+            //UserEmail Cookie
+            HttpCookie tempCookie = new HttpCookie("UserEmailCookie");
+            tempCookie.Values["Email"] = email;
+            tempCookie.Expires = new DateTime(2020, 2, 1);
+            Response.Cookies.Add(tempCookie);
             //Set User Profile Name
             SetUserProfileName();
             //Set User Profile Picture
@@ -34,7 +75,10 @@ namespace TermProjectSolution
             SqlCommand objCommand = new SqlCommand();
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPGetUserInfo";
-            objCommand.Parameters.AddWithValue("@email", Request.Cookies["EmailCookie"]["Email"]);
+
+           
+
+            objCommand.Parameters.AddWithValue("@email", Request.Cookies["UserEmailCookie"]["Email"]);
 
             DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
             UserNameLabel.Text = UserInfoDataSet.Tables[0].Rows[0]["name"].ToString();
@@ -42,7 +86,10 @@ namespace TermProjectSolution
 
         void SetUserProfilePicture()
         {
-            UserProfileImage.ImageUrl = "../Storage/" + Request.Cookies["EmailCookie"]["Email"] + "-ProfileImage.png";
+            //Get profile image link
+
+
+            UserProfileImage.ImageUrl = "../Storage/" + Request.Cookies["UserEmailCookie"]["Email"] + "-ProfileImage.png";
         }
 
         void SetUserProfileInformation()
@@ -52,7 +99,7 @@ namespace TermProjectSolution
             SqlCommand objCommand = new SqlCommand();
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPGetUserInfo";
-            objCommand.Parameters.AddWithValue("@email", Request.Cookies["EmailCookie"]["Email"]);
+            objCommand.Parameters.AddWithValue("@email", Request.Cookies["UserEmailCookie"]["Email"]);
 
             DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
             UserNameLabel.Text = UserInfoDataSet.Tables[0].Rows[0]["name"].ToString();
@@ -93,13 +140,13 @@ namespace TermProjectSolution
 
                 if (extension.ToLower() == ".jpg" || extension.ToLower() == ".png" || extension.ToLower() == ".jpeg")
                 {
-                    ProfileImageUpload.PostedFile.SaveAs(Server.MapPath("~/Storage/") + Request.Cookies["EmailCookie"]["Email"] + "-ProfileImage.png");
+                    ProfileImageUpload.PostedFile.SaveAs(Server.MapPath("~/Storage/") + Request.Cookies["UserEmailCookie"]["Email"] + "-ProfileImage.png");
                     DBConnect objDB = new DBConnect();
                     SqlCommand objCommand = new SqlCommand();
                     objCommand.CommandType = CommandType.StoredProcedure;
                     objCommand.CommandText = "TPUpdateProfileURL";
-                    objCommand.Parameters.AddWithValue("@email", Request.Cookies["EmailCookie"]["Email"]);
-                    objCommand.Parameters.AddWithValue("@URL", Request.Cookies["EmailCookie"]["Email"] + "-ProfileImage.png");
+                    objCommand.Parameters.AddWithValue("@email", Request.Cookies["UserEmailCookie"]["Email"]);
+                    objCommand.Parameters.AddWithValue("@URL", Request.Cookies["UserEmailCookie"]["Email"] + "-ProfileImage.png");
                     objDB.DoUpdateUsingCmdObj(objCommand);
                     Response.Redirect(Request.Url.AbsoluteUri);
                 }
