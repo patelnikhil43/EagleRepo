@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="TermProjectSolution.Profile" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserProfile.aspx.cs" Inherits="TermProjectSolution.UserProfile" %>
 
 <!DOCTYPE html>
 
@@ -51,7 +51,7 @@
              </asp:Table>  
         </div>
         <div id="FriendListDiv">
-            <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand">
+            <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="false">
                 <Columns>
                   <%--  <asp:TemplateField>
                         <ItemTemplate>
@@ -61,10 +61,11 @@
                     <asp:BoundField DataField="friendEmail" SortExpression="friendEmail" Visible="false" />
                     <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
                   
-                  
-                    <asp:ButtonField Text="View" />
-                  
-                  
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="ViewProfileButton" runat="server" Text="Button" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </div>
