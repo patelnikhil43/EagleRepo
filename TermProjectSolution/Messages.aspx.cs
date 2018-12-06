@@ -27,7 +27,7 @@ namespace TermProjectSolution
             //gvFriendsOnline.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
             //gvFriendsOnline.DataBind();
             //gvFriendsOnline.Visible = true;
-            getFriendsOnline();
+            getFriendsOnline(); 
         }
 
         public void LoadMessages()

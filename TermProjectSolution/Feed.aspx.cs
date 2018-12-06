@@ -27,6 +27,7 @@ namespace TermProjectSolution
             objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
 
             objDB.DoUpdateUsingCmdObj(objCommand);
+            Session.Abandon();
             Response.Redirect("Login.aspx");
         }
     }

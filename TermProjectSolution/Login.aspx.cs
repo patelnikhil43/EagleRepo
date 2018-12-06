@@ -159,9 +159,29 @@ namespace TermProjectSolution
                     RijndaelManaged rmEncryption = new RijndaelManaged();
                     MemoryStream memStream = new MemoryStream();
                     CryptoStream encryptionStream = new CryptoStream(memStream, rmEncryption.CreateEncryptor(key, vector), CryptoStreamMode.Write);
- 
+
+                    bool hadSettings = false;
+                    Settings loginSettings = new Settings();
+                    if(Session["userSettings"] != null)
+                    {
+                        loginSettings = (Settings)Session["userSettings"];
+                        hadSettings = true;
+                    }
+                    else
+                    {
+                        loginSettings.Theme = "Default";
+                        loginSettings.PersonalContactInfoPrivacy = "Friends";
+                        loginSettings.PhotoPrivacy = "Friends";
+                        loginSettings.ProfileInfoPrivacy = "Friends";
+                    }
+
                     if (rdoAutoLogin.Checked)
                     {
+                        if (hadSettings)
+                        {
+                            loginSettings.LoginPreference = "Auto-Login";
+                            Session.Add("userSettings", loginSettings);
+                        }
                         //Email
                         encryptionStream.Write(emailBytes, 0, emailBytes.Length);
                         encryptionStream.FlushFinalBlock();
@@ -199,6 +219,11 @@ namespace TermProjectSolution
                     }
                     else if (rdoFastLogin.Checked)
                     {
+                        if (hadSettings)
+                        {
+                            loginSettings.LoginPreference = "Fast-Login";
+                            Session.Add("userSettings", loginSettings);
+                        }
                         encryptionStream.Write(emailBytes, 0, emailBytes.Length);
                         encryptionStream.FlushFinalBlock();
 
@@ -218,8 +243,13 @@ namespace TermProjectSolution
                     }
                     else
                     {
+                        if (hadSettings)
+                        {
+                            loginSettings.LoginPreference = "None";
+                            Session.Add("userSettings", loginSettings);
+                        }
                         //delete cookies from computer
-                        if(Request.Cookies["LoginCookie"] != null)
+                        if (Request.Cookies["LoginCookie"] != null)
                         {
                             Response.Cookies.Remove("LoginCookie");
                         }
