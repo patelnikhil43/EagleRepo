@@ -31,29 +31,29 @@ namespace TermProjectSolution
             //No Need for Validation
             DBConnect dbConnection = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
-            //objCommand.CommandType = CommandType.StoredProcedure;
-            //objCommand.CommandText = "TPUpdateUserPreference";
-            //SqlParameter inputParameter = new SqlParameter("@Email", Session["userEmail"].ToString());
-            //inputParameter.Direction = ParameterDirection.Input;
-            //inputParameter.SqlDbType = SqlDbType.NVarChar;
-            //objCommand.Parameters.Add(inputParameter);
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPUpdateUserPreference";
+            SqlParameter inputParameter = new SqlParameter("@Email", Session["userEmail"].ToString());
+            inputParameter.Direction = ParameterDirection.Input;
+            inputParameter.SqlDbType = SqlDbType.NVarChar;
+            objCommand.Parameters.Add(inputParameter);
 
-            //inputParameter = new SqlParameter("@Login", LoginPreferenceDropDown.SelectedValue);
-            //inputParameter.Direction = ParameterDirection.Input;
-            //inputParameter.SqlDbType = SqlDbType.NVarChar;
-            //objCommand.Parameters.Add(inputParameter);
+            inputParameter = new SqlParameter("@Login", LoginPreferenceDropDown.SelectedValue);
+            inputParameter.Direction = ParameterDirection.Input;
+            inputParameter.SqlDbType = SqlDbType.NVarChar;
+            objCommand.Parameters.Add(inputParameter);
 
-            //inputParameter = new SqlParameter("@Theme", ThemePreferenceDropDown.SelectedValue);
-            //inputParameter.Direction = ParameterDirection.Input;
-            //inputParameter.SqlDbType = SqlDbType.NVarChar;
-            //objCommand.Parameters.Add(inputParameter);
+            inputParameter = new SqlParameter("@Theme", ThemePreferenceDropDown.SelectedValue);
+            inputParameter.Direction = ParameterDirection.Input;
+            inputParameter.SqlDbType = SqlDbType.NVarChar;
+            objCommand.Parameters.Add(inputParameter);
 
-            //inputParameter = new SqlParameter("@Privacy", PrivacyPreferenceDropDown.SelectedValue);
-            //inputParameter.Direction = ParameterDirection.Input;
-            //inputParameter.SqlDbType = SqlDbType.NVarChar;
-            //objCommand.Parameters.Add(inputParameter);
+            inputParameter = new SqlParameter("@Privacy", PrivacyPreferenceDropDown.SelectedValue);
+            inputParameter.Direction = ParameterDirection.Input;
+            inputParameter.SqlDbType = SqlDbType.NVarChar;
+            objCommand.Parameters.Add(inputParameter);
 
-            //int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
+            int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
             Settings userSettings = new Settings();
             userSettings.LoginPreference = LoginPreferenceDropDown.SelectedValue;

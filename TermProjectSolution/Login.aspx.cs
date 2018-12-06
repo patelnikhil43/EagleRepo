@@ -12,6 +12,7 @@ using System.Security.Cryptography;     // needed for the encryption classes
 using System.IO;                        // needed for the MemoryStream
 using System.Text;                      // needed for the UTF8 encoding
 using System.Net;                       // needed for the cookie
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TermProjectSolution
 {
@@ -132,6 +133,16 @@ namespace TermProjectSolution
                     //might need to switch this to a UserAccount Object, not sure tho
                     Session.Add("userEmail", txtEmail.Text);
                     Session.Add("userPassword", txtPassword.Text);
+
+                    if(objDB.GetField("userSettings", 0) != System.DBNull.Value)
+                    {
+                        Byte[] byteSettings = (Byte[])objDB.GetField("userSettings", 0);
+                        BinaryFormatter deserializer = new BinaryFormatter();
+                        MemoryStream memoryStream = new MemoryStream(byteSettings);
+
+                        Settings userSettings = (Settings)deserializer.Deserialize(memoryStream);
+                        Session.Add("userSettings", userSettings);
+                    }
 
                     String plainTextEmail = txtEmail.Text;
                     String plainTextPassword = txtPassword.Text;
