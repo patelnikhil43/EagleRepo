@@ -71,6 +71,7 @@
     <Content Include="Feed.aspx" />
     <Content Include="FindFriends.aspx" />
     <Content Include="FriendRequests.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="MessageBox.ascx" />
     <Content Include="Messages.aspx" />
@@ -106,6 +107,9 @@
     </Compile>
     <Compile Include="FriendRequests.aspx.designer.cs">
       <DependentUpon>FriendRequests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

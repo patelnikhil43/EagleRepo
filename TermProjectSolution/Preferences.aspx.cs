@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -30,29 +31,60 @@ namespace TermProjectSolution
             //No Need for Validation
             DBConnect dbConnection = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
-            objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "TPUpdateUserPreference";
-            SqlParameter inputParameter = new SqlParameter("@Email", Session["userEmail"].ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
+            //objCommand.CommandType = CommandType.StoredProcedure;
+            //objCommand.CommandText = "TPUpdateUserPreference";
+            //SqlParameter inputParameter = new SqlParameter("@Email", Session["userEmail"].ToString());
+            //inputParameter.Direction = ParameterDirection.Input;
+            //inputParameter.SqlDbType = SqlDbType.NVarChar;
+            //objCommand.Parameters.Add(inputParameter);
 
-            inputParameter = new SqlParameter("@Login", LoginPreferenceDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
+            //inputParameter = new SqlParameter("@Login", LoginPreferenceDropDown.SelectedValue);
+            //inputParameter.Direction = ParameterDirection.Input;
+            //inputParameter.SqlDbType = SqlDbType.NVarChar;
+            //objCommand.Parameters.Add(inputParameter);
 
-            inputParameter = new SqlParameter("@Theme", ThemePreferenceDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
+            //inputParameter = new SqlParameter("@Theme", ThemePreferenceDropDown.SelectedValue);
+            //inputParameter.Direction = ParameterDirection.Input;
+            //inputParameter.SqlDbType = SqlDbType.NVarChar;
+            //objCommand.Parameters.Add(inputParameter);
 
-            inputParameter = new SqlParameter("@Privacy", PrivacyPreferenceDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
+            //inputParameter = new SqlParameter("@Privacy", PrivacyPreferenceDropDown.SelectedValue);
+            //inputParameter.Direction = ParameterDirection.Input;
+            //inputParameter.SqlDbType = SqlDbType.NVarChar;
+            //objCommand.Parameters.Add(inputParameter);
 
-            int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
+            //int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
+
+            Settings userSettings = new Settings();
+            userSettings.LoginPreference = LoginPreferenceDropDown.SelectedValue;
+            userSettings.Theme = ThemePreferenceDropDown.SelectedValue;
+            userSettings.ProfileInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+            userSettings.PhotoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+            userSettings.PersonalContactInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+
+            Session.Add("userSettings", userSettings);
+
+            //BinaryFormatter serializer = new BinaryFormatter();
+            //MemoryStream memoryStream = new MemoryStream();
+            //serializer.Serialize(memoryStream, userSettings);
+            //Byte[] byteSettings = memoryStream.ToArray();
+
+            //objCommand.CommandType = CommandType.StoredProcedure;
+            //objCommand.CommandText = "TPUpdateUserSettings";
+
+            //objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+            //objCommand.Parameters.AddWithValue("@theSettings", byteSettings);
+
+            //int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
+
+            //if (ResponseRecevied == 1)
+            //{
+            //    Response.Write("Settings updated successfully.");
+            //}
+            //else
+            //{
+            //    Response.Write("There was a problem updating your user settngs.");
+            //}
 
             String plainTextEmail = Session["userEmail"].ToString();
             String plainTextPassword = Session["userPassword"].ToString();

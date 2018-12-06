@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -175,9 +177,42 @@ namespace TermProjectSolution
 
             int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
-            if (ResponseRecevied == 1) {
-                //Preferences Updated 
-            }
+            Settings userSettings = new Settings();
+            userSettings.LoginPreference = LoginPreferenceDropDown.SelectedValue;
+            userSettings.Theme = ThemePreferenceDropDown.SelectedValue;
+            userSettings.ProfileInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+            userSettings.PhotoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+            userSettings.PersonalContactInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+
+            Session.Add("userSettings", userSettings);
+
+            //the code below happens in the session end event in the global.asax file
+
+            //BinaryFormatter serializer = new BinaryFormatter();
+            //MemoryStream memStream = new MemoryStream();
+            //serializer.Serialize(memStream, userSettings);
+            //Byte[] byteSettings = memStream.ToArray();
+
+            //objCommand.CommandType = CommandType.StoredProcedure;
+            //objCommand.CommandText = "TPUpdateUserSettings";
+
+            //objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+            //objCommand.Parameters.AddWithValue("@theSettings", byteSettings);
+
+            //int retVal = dbConnection.DoUpdateUsingCmdObj(objCommand);
+
+            //if (ResponseRecevied == 1) {
+            //    //Preferences Updated 
+            //}
+
+            //if(retVal == 1)
+            //{
+            //    Response.Write("Settings updated successfully.");
+            //}
+            //else
+            //{
+            //    Response.Write("There was a problem updating your user settngs.");
+            //}
         }
 
     }
