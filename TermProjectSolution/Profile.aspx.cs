@@ -295,6 +295,8 @@ namespace TermProjectSolution
             plainTextEmail = encoder.GetString(emailBytes);
             String email = plainTextEmail;
             //End of decoder
+
+
             FindFriendsClass ffObject = new FindFriendsClass();
             ffObject.userEmail = email;
             JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
@@ -341,8 +343,14 @@ namespace TermProjectSolution
         {
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow row = FriendListGV.Rows[index];
-            var name = row.Cells[1].Text;
-            Response.Write(name);
+           
+            var email = (row.FindControl("friendEmailID") as Label).Text; 
+            //View Profile Cookie          
+            HttpCookie tempCookie = new HttpCookie("ViewProfile");
+            tempCookie.Values["Email"] = email;
+            tempCookie.Expires = new DateTime(2020, 2, 1);
+            Response.Cookies.Add(tempCookie);
+            Response.Redirect("OtherUserProfile.aspx");
         }
     }
 }
