@@ -1,18 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="TermProjectSolution.Profile" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OtherUserProfile.aspx.cs" Inherits="TermProjectSolution.OtherUserProfile" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Profile.css" type="text/css" />
 </head>
 <body>
-    <nav class="navbar navbar-default">
+     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">WebSiteName</a>
@@ -43,27 +43,22 @@
             <asp:Image ID="UserProfileImage" runat="server" />
             <br />
             <asp:FileUpload ID="ProfileImageUpload" runat="server" accept=".png, .jpeg, .jpg" />
-            <asp:Button Text="Upload" ID="ChangeUserProfileImageButton" runat="server" OnClick="ChangeUserProfileImageButton_Click" /> 
-        </div>
+            <asp:Button Text="Upload" ID="ChangeUserProfileImageButton" runat="server" OnClick="ChangeUserProfileImageButton_Click" />
+            </div>
         <div id="UserProfileInformation">
             <asp:Table ID="UserProfileTable" runat="server"> 
                
              </asp:Table>  
         </div>
-        <div id="FriendListDiv">
-            <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand">
+         <div id="FriendListDiv">
+            <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand" >
                 <Columns>
                   <%--  <asp:TemplateField>
                         <ItemTemplate>
                             <asp:Image ID="UserFriendImage" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>--%>
-                     <asp:TemplateField visible="false">
-                        <ItemTemplate>
-                            <asp:Label ID="friendEmailID" runat="server" Text='<%# Eval("userEmail") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                   
+                    <asp:BoundField DataField="friendEmail" SortExpression="friendEmail" Visible="false" />
                     <asp:BoundField DataField="name" HeaderText="Friends List" SortExpression="name" />
                   
                   
