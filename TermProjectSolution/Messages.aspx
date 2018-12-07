@@ -35,7 +35,7 @@
         </div>
     </nav>
     <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        
         <div style="padding: 25px;">
             <div class="row">
                 <div class="col-md-4"></div>
@@ -45,7 +45,7 @@
                 <div class="col-md-4"></div>
             </div>
             <div class="row">
-                <div id="messageContainer" class="col-md-3">
+                <%--<div id="messageContainer" class="col-md-3">
                     <asp:Label ID="lblSendMessage" runat="server" Font-Size="Large" Text="Type a friend's email adress and send them a message!"></asp:Label>
                     <br />
                     <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
@@ -66,8 +66,8 @@
                             <asp:Button ID="btnGetFriendsOnline" CssClass="btnFB" runat="server" Text="Refresh Friends" OnClick="btnGetFriendsOnline_Click" />
                         </div>
                     </div>
-                </div>
-                <div class="col-md-1"></div>
+                </div>--%>
+                <div class="col-md-2"></div>
                 <div id="friendsContainer" class="col-md-8">
                     <div style="text-align: center;">
                         <asp:Label ID="lblFriends" runat="server" Font-Size="Larger" Font-Bold="true" Text="My Friends"></asp:Label>
@@ -94,13 +94,13 @@
                     </asp:GridView>
                 </div>
             </div>
-            <div class="row">
+            <%--<div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4" style="text-align: center;">
                     <asp:Label ID="lblMessages" Font-Size="Medium" CssClass="lblTitle" runat="server" Text="Messages"></asp:Label>
                 </div>
                 <div class="col-md-4"></div>
-            </div>
+            </div>--%>
         </div>
     </form>
 </body>

@@ -14,7 +14,8 @@ namespace TermProjectSolution
 {
     public partial class MessageBox : System.Web.UI.UserControl
     {
-        String messageBody;
+        //String messageBody;
+        int messageID;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -27,12 +28,23 @@ namespace TermProjectSolution
         //    set { messageBody = value; }
         //}
 
+        public int MessageID
+        {
+            get { return messageID; }
+        }
+
+        public int GetMessageID()
+        {
+            return messageID;
+        }
+
         public void DataBind(Message msg)
         {
             lblSender.Text += msg.UserEmail;
             lblMessageBody.Text = msg.MessageBody;
             lblMessageDate.Text = msg.MessageDate.ToString();
             lblMessageID.Text = msg.MessageID.ToString();
+            messageID = msg.MessageID;
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
