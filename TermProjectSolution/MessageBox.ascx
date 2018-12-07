@@ -21,7 +21,11 @@
 
 <div id="messageBox">
     <div style="float: right;">
-        <asp:Button ID="btnDelete" CssClass="btnDelete" runat="server" Text="X" OnClick="btnDelete_Click" />
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:Button ID="btnDelete" CssClass="btnDelete" runat="server" Text="X" OnClick="btnDelete_Click" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </div>
     <div style="float: none;"></div>
     <br />

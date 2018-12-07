@@ -35,6 +35,7 @@
         </div>
     </nav>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div style="padding: 25px;">
             <div class="row">
                 <div class="col-md-4"></div>

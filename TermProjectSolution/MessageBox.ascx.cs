@@ -20,12 +20,12 @@ namespace TermProjectSolution
 
         }
 
-        [Category("Misc")]
-        public String MessageBody
-        {
-            get { return messageBody; }
-            set { messageBody = value; }
-        }
+        //[Category("Misc")]
+        //public String MessageBody
+        //{
+        //    get { return messageBody; }
+        //    set { messageBody = value; }
+        //}
 
         public void DataBind(Message msg)
         {
