@@ -26,6 +26,18 @@ namespace TermProjectSolution
             //}
         }
 
+        protected void btnLogOut_Click(object sender, EventArgs e)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPUpdateStatusLogout";
+            objCommand.Parameters.Clear();
+            objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+
+            objDB.DoUpdateUsingCmdObj(objCommand);
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
+        }
+
         //public void LoadMessages()
         //{
         //    objCommand.CommandType = CommandType.StoredProcedure;
@@ -64,13 +76,26 @@ namespace TermProjectSolution
 
             objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
 
+            DataSet myFriendsOnline = objDB.GetDataSetUsingCmdObj(objCommand);
 
-            gvFriendsOnline.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
+            gvFriendsOnline.DataSource = myFriendsOnline;
             gvFriendsOnline.DataBind();
             gvFriendsOnline.Visible = true;
             if(gvFriendsOnline.Rows.Count == 0)
             {
                 lblNoMessages.Text = "You have no friends currently online.";
+            }
+            else
+            {
+                for(int i = 0; i < gvFriendsOnline.Rows.Count; i++)
+                {
+                    Image myProfilePic = (Image)gvFriendsOnline.Rows[i].FindControl("imgProfilePic");
+                    myProfilePic.ImageUrl = objDB.GetField("profilePicUrl", i).ToString();
+                    if(myProfilePic.ImageUrl == "")
+                    {
+                        myProfilePic.ImageUrl = "../Storage/default-profile.png";
+                    }
+                }
             }
         }
 
