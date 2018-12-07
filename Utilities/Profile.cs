@@ -171,19 +171,38 @@ namespace Utilities
             DBConnect objDB = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
             objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "TP_CheckIfFOF";
-            objCommand.Parameters.AddWithValue("@RequestingUser", RequestingUser);
-            objCommand.Parameters.AddWithValue("@RequestedUser", RequestedUserEmail);
-            DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
+            objCommand.CommandText = "TPGetFriends";
+            objCommand.Parameters.AddWithValue("@userEmail", RequestingUser);
+            
+            DataSet RequestingUserDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
 
-            if (UserInfoDataSet != null && UserInfoDataSet.Tables.Count != 0 && UserInfoDataSet.Tables[0].Rows.Count != 0)
-            {
-                return true;
-            }
-            else
+            DBConnect obj1DB = new DBConnect();
+            SqlCommand obj1Command = new SqlCommand();
+            obj1Command.CommandType = CommandType.StoredProcedure;
+            obj1Command.CommandText = "TPGetFriends";
+            obj1Command.Parameters.AddWithValue("@userEmail", RequestedUserEmail);
+
+            DataSet RequestedUserDataSet = obj1DB.GetDataSetUsingCmdObj(obj1Command);
+
+            if (RequestingUserDataSet == null || RequestingUserDataSet.Tables.Count == 0 || RequestingUserDataSet.Tables[0].Rows.Count == 0)
             {
                 return false;
             }
+            if (RequestedUserDataSet == null || RequestedUserDataSet.Tables.Count == 0 || RequestedUserDataSet.Tables[0].Rows.Count == 0)
+            {
+                return false;
+            }
+            else {
+                for (var i = 0; i < RequestingUserDataSet.Tables[0].Rows.Count; i++) {
+                    for (var n = 0; n < RequestedUserDataSet.Tables[0].Rows.Count; n++) {
+                        if (RequestingUserDataSet.Tables[0].Rows[i]["friendEmail"].ToString() == RequestedUserDataSet.Tables[0].Rows[n]["friendEmail"].ToString()) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }//end of else
+
 
         }
 
