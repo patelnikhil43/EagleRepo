@@ -44,12 +44,14 @@ namespace TermProjectSolution
 
         protected void btnLogOut_Click(object sender, EventArgs e)
         {
+            DBConnect dbConnection = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPUpdateStatusLogout";
             objCommand.Parameters.Clear();
             objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
 
-            objDB.DoUpdateUsingCmdObj(objCommand);
+            dbConnection.DoUpdateUsingCmdObj(objCommand);
             Session.Abandon();
             Response.Redirect("Login.aspx");
         }
