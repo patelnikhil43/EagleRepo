@@ -108,7 +108,7 @@ namespace TermProjectSolution
         protected void btnOrganizationSearch_Click(object sender, EventArgs e)
         {
             objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText
+          
         }
     }
 }

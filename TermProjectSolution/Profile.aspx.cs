@@ -555,7 +555,8 @@ namespace TermProjectSolution
                     objCommand.Parameters.AddWithValue("@ImageURL", email + "-Post" + timeStamp+ ".png");
                     objCommand.Parameters.AddWithValue("@DatePosted", DateTime.Now);
                     objCommand.Parameters.AddWithValue("@Tag", "YES");
-                    objCommand.Parameters.AddWithValue("@PostType", "IMAGEPOST");
+                    objCommand.Parameters.AddWithValue("@PostType", "IMAGEPOST"); 
+                    objCommand.Parameters.AddWithValue("@postingToUser", email);
                     objDB.DoUpdateUsingCmdObj(objCommand);
                     Response.Redirect(Request.Url.AbsoluteUri);
                 }
@@ -576,6 +577,8 @@ namespace TermProjectSolution
             objCommand.Parameters.AddWithValue("@datePosted", DateTime.Now);
             objCommand.Parameters.AddWithValue("@tag", "NO");
             objCommand.Parameters.AddWithValue("@postType", "STATUSPOST");
+            objCommand.Parameters.AddWithValue("@postingToUser", email);
+
             objDB.DoUpdateUsingCmdObj(objCommand);
             Response.Redirect(Request.Url.AbsoluteUri);
         }
