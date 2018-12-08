@@ -37,11 +37,26 @@
         </div>
         <div>
             <div id="searchContainer">
-                <asp:Label ID="lblSearch" runat="server" Text="Search for a friend:"></asp:Label>
+                <asp:Label ID="lblSearch" runat="server" Text="Search for a friend by name:"></asp:Label>
                 <br />
                 <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
+                <asp:Button ID="btnSearch" CssClass="btnFB" runat="server" Text="Search" OnClick="btnSearch_Click" />
+                <asp:Button ID="btnCancel" CssClass="btnFB" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
+            </div>
+            <br />
+            <div id="advancedSearchContainer">
+                <asp:Label ID="lblAdvancedSearch" runat="server" Text="Search for a friend using the following catergories:"></asp:Label>
+                <br />
+                <asp:Label ID="lblState" runat="server" Text="State:"></asp:Label>
+                <br />
+                <asp:TextBox ID="txtState" runat="server"></asp:TextBox>
+                <asp:Button ID="btnStateSearch" CssClass="btnFB" runat="server" Text="Search" OnClick="btnStateSearch_Click"/>
+                <br />
+                <br />
+                <asp:Label ID="lblOrganization" runat="server" Text="Organization:"></asp:Label>
+                <br />
+                <asp:TextBox ID="txtOrganization" runat="server"></asp:TextBox>
+                <asp:Button ID="btnOrganizationSearch" CssClass="btnFB" runat="server" Text="Search" OnClick="btnOrganizationSearch_Click"/>
             </div>
             <br />
             <div id="searchResults">

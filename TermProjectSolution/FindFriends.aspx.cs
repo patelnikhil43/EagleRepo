@@ -99,5 +99,16 @@ namespace TermProjectSolution
             Session.Abandon();
             Response.Redirect("Login.aspx");
         }
+
+        protected void btnStateSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnOrganizationSearch_Click(object sender, EventArgs e)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText
+        }
     }
 }

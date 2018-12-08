@@ -173,6 +173,8 @@ namespace TermProjectSolution
 
         protected void btnLogOut_Click(object sender, EventArgs e)
         {
+            SqlCommand objCommand = new SqlCommand();
+            DBConnect objDB = new DBConnect();
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPUpdateStatusLogout";
             objCommand.Parameters.Clear();
