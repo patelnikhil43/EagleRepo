@@ -74,6 +74,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="MessageBox.ascx" />
+    <Content Include="MessageConversation.aspx" />
     <Content Include="Messages.aspx" />
     <Content Include="OtherUserProfile.aspx" />
     <Content Include="PasswordRecovery.aspx" />
@@ -125,6 +126,13 @@
     </Compile>
     <Compile Include="MessageBox.ascx.designer.cs">
       <DependentUpon>MessageBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MessageConversation.aspx.cs">
+      <DependentUpon>MessageConversation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MessageConversation.aspx.designer.cs">
+      <DependentUpon>MessageConversation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Messages.aspx.cs">
       <DependentUpon>Messages.aspx</DependentUpon>

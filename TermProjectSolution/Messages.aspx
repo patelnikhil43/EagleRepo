@@ -14,27 +14,27 @@
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">WebSiteName</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Page 1-1</a></li>
-                        <li><a href="#">Page 1-2</a></li>
-                        <li><a href="#">Page 1-3</a></li>
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Fakebook</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="Feed.aspx">Feed</a></li>
+                        <li><a href="Profile.aspx">My Profile</a></li>
+                        <li><a href="Preferences.aspx">Preferences</a></li>
+                        <li><a href="FindFriends.aspx">Find Friends</a></li>
+                        <li><a href="FriendRequests.aspx">Friend Requests</a></li>
+                        <li class="active"><a href="Messages.aspx">Messages</a></li>
                     </ul>
-                </li>
-                <li><a href="FindFriends.aspx">Find Friends</a></li>
-                <li><a href="Preferences.aspx">Preferences</a></li>
-                <li><a href="FriendRequests.aspx">Friend Requests</a></li>
-                <li><a href="Messages.aspx">Messages</a></li>
-                <li><a href="Profile.aspx">My Profile</a></li>
-            </ul>
+                </div>
+            </div>
         </div>
     </nav>
     <form id="form1" runat="server">
+        <div style="position:absolute; top:15px; right:15px;">
+            <asp:Button ID="btnLogOut" CssClass="btnFB" runat="server" Text="Log Out" OnClick="btnLogOut_Click" />
+        </div>
         <div style="padding: 25px;">
             <div class="row">
                 <div class="col-md-4"></div>
@@ -44,7 +44,7 @@
                 <div class="col-md-4"></div>
             </div>
             <div class="row">
-                <div id="messageContainer" class="col-md-3">
+                <%--<div id="messageContainer" class="col-md-3">
                     <asp:Label ID="lblSendMessage" runat="server" Font-Size="Large" Text="Type a friend's email adress and send them a message!"></asp:Label>
                     <br />
                     <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
@@ -65,41 +65,44 @@
                             <asp:Button ID="btnGetFriendsOnline" CssClass="btnFB" runat="server" Text="Refresh Friends" OnClick="btnGetFriendsOnline_Click" />
                         </div>
                     </div>
-                </div>
-                <div class="col-md-1"></div>
+                </div>--%>
+                <div class="col-md-2"></div>
                 <div id="friendsContainer" class="col-md-8">
                     <div style="text-align: center;">
-                        <asp:Label ID="lblFriends" runat="server" Font-Size="Larger" Font-Bold="true" Text="My Friends"></asp:Label>
+                        <asp:Label ID="lblFriends" runat="server" Font-Size="Larger" Font-Bold="true" Text="My Friends Online"></asp:Label>
+                        <br />
+                        <asp:Label ID="lblNoMessages" runat="server" Font-Size="Larger" Font-Bold="true" Text=""></asp:Label>
+                        <br />
+                        
+
+                        <asp:GridView ID="gvFriendsOnline" CssClass="gvFriendsOnline" BackColor="DimGray" CellPadding="10" runat="server" AutoGenerateColumns="false" Visible="False">
+                            <Columns>
+                                <asp:BoundField DataField="name" HeaderText="Name" />
+                                <asp:BoundField DataField="friendEmail" HeaderText="Email" />
+                                <asp:BoundField DataField="state" HeaderText="State" />
+                                <asp:BoundField DataField="organization" HeaderText="Organization" />
+                                <asp:TemplateField HeaderText="Profile Picture">
+                                    <ItemTemplate>
+                                        <asp:Image ID="imgProfilePic" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Send Message">
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnSendMessage" CssClass="btnFB" runat="server" Text="Send Message" OnClick="btnSendMessage_Click" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
                     </div>
-                    <asp:Label ID="lblNoMessages" runat="server" Font-Size="Larger" Font-Bold="true" Text=""></asp:Label>
-                    <br />
-                    <asp:GridView ID="gvFriendsOnline" CssClass="gvFriendsOnline" BackColor="DimGray" CellPadding="10" runat="server" AutoGenerateColumns="false" Visible="False">
-                        <Columns>
-                            <asp:BoundField DataField="name" HeaderText="Name" />
-                            <asp:BoundField DataField="friendEmail" HeaderText="Email" />
-                            <asp:BoundField DataField="state" HeaderText="State" />
-                            <asp:BoundField DataField="organization" HeaderText="Organization" />
-                            <asp:TemplateField HeaderText="Profile Picture">
-                                <ItemTemplate>
-                                    <asp:Image ID="imgProfilePic" runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Send Message">
-                                <ItemTemplate>
-                                    <asp:Button ID="btnSendMessage" CssClass="btnFB" runat="server" Text="Send Message" OnClick="btnSendMessage_Click" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                    </asp:GridView>
                 </div>
             </div>
-            <div class="row">
+            <%--<div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4" style="text-align: center;">
                     <asp:Label ID="lblMessages" Font-Size="Medium" CssClass="lblTitle" runat="server" Text="Messages"></asp:Label>
                 </div>
                 <div class="col-md-4"></div>
-            </div>
+            </div>--%>
         </div>
     </form>
 </body>

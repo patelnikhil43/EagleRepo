@@ -87,5 +87,17 @@ namespace TermProjectSolution
         {
             Response.Redirect("Feed.aspx");
         }
+
+        protected void btnLogOut_Click(object sender, EventArgs e)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPUpdateStatusLogout";
+            objCommand.Parameters.Clear();
+            objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+
+            objDB.DoUpdateUsingCmdObj(objCommand);
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
+        }
     }
 }
