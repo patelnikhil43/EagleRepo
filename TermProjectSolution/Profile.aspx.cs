@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -37,6 +38,7 @@ namespace TermProjectSolution
             SetUserProfileInformation();
             //Set Friend List
             SetFriendList();
+           
 
         }
         void SetUserProfileName()
@@ -351,6 +353,297 @@ namespace TermProjectSolution
             tempCookie.Expires = new DateTime(2020, 2, 1);
             Response.Cookies.Add(tempCookie);
             Response.Redirect("OtherUserProfile.aspx");
+        }
+
+        protected void ChoosePostTypeDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ChoosePostTypeDD.SelectedValue == "PhotoPost") {
+                TypeImagePostDiv.Visible = true;
+            }
+            if (ChoosePostTypeDD.SelectedValue == "StatusPost") {
+                TypeStatusPostDiv.Visible = true;
+            }
+        }
+
+        protected void TagFriendsDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TagFriendsDD.SelectedValue == "YES") {
+                SetTagFriendsList();
+            } 
+               
+               
+        }
+
+        void SetTagFriendsList() {
+            //Decoder
+            HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            //txtEmail.Text = myCookie.Values["Email"];
+            //txtPassword.Text = myCookie.Values["Password"];
+            String encryptedEmail = myCookie.Values["Email"];
+
+            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            Byte[] emailBytes;
+            String plainTextEmail;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+            MemoryStream memStream = new MemoryStream();
+            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+
+            //Email
+            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            decryptionStream.FlushFinalBlock();
+
+            memStream.Position = 0;
+            emailBytes = new Byte[memStream.Length];
+            memStream.Read(emailBytes, 0, emailBytes.Length);
+
+            decryptionStream.Close();
+            memStream.Close();
+
+            plainTextEmail = encoder.GetString(emailBytes);
+            String email = plainTextEmail;
+            //End of decoder
+
+
+            FindFriendsClass ffObject = new FindFriendsClass();
+            ffObject.userEmail = email;
+            JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
+            String jsonffObject = js.Serialize(ffObject);
+            try
+            {
+                // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
+                WebRequest request = WebRequest.Create("http://localhost:55065/api/FindFriends/FindFriendsDS/");
+                request.Method = "POST";
+                request.ContentLength = jsonffObject.Length;
+                request.ContentType = "application/json";
+
+                // Write the JSON data to the Web Request
+                StreamWriter writer = new StreamWriter(request.GetRequestStream());
+                writer.Write(jsonffObject);
+                writer.Flush();
+                writer.Close();
+
+                // Read the data from the Web Response, which requires working with streams.
+
+                WebResponse response = request.GetResponse();
+                Stream theDataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(theDataStream);
+                String data = reader.ReadToEnd();
+
+                reader.Close();
+                response.Close();
+
+                FindFriendsClass[] CreditInfoData = js.Deserialize<FindFriendsClass[]>(data);
+                TagFriendsGV.DataSource = CreditInfoData;
+                TagFriendsGV.DataBind();
+
+
+
+
+            }
+            catch (Exception errorEx)
+            {
+                Response.Write(errorEx.Message);
+            }
+        }
+
+        protected void PostButton_Click(object sender, EventArgs e)
+        {
+            //Get User Email
+            //Decoder
+            HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            //txtEmail.Text = myCookie.Values["Email"];
+            //txtPassword.Text = myCookie.Values["Password"];
+            String encryptedEmail = myCookie.Values["Email"];
+
+            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            Byte[] emailBytes;
+            String plainTextEmail;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+            MemoryStream memStream = new MemoryStream();
+            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+
+            //Email
+            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            decryptionStream.FlushFinalBlock();
+
+            memStream.Position = 0;
+            emailBytes = new Byte[memStream.Length];
+            memStream.Read(emailBytes, 0, emailBytes.Length);
+
+            decryptionStream.Close();
+            memStream.Close();
+
+            plainTextEmail = encoder.GetString(emailBytes);
+            String email = plainTextEmail;
+            //End of Decoder
+
+            ArrayList ImagePostErrorArray = new ArrayList();
+            //Check Which Options is selected
+            if (ChoosePostTypeDD.SelectedValue == "PhotoPost") {
+                //Validate
+                if (!FileImageUpload.HasFile) {
+                    ImagePostErrorArray.Add("Select an Image");
+                }
+                string extension = System.IO.Path.GetExtension(FileImageUpload.FileName);
+                if (extension.ToLower() != ".jpg" && extension.ToLower() != ".png" && extension.ToLower() != ".jpeg") {
+                    ImagePostErrorArray.Add("ONLY .JPG, .PNG OR .JPEG Images are allowed");
+                }
+                if (ImageCaptionTextBox.Text == "") {
+                    ImagePostErrorArray.Add("Enter Caption");
+                }
+                if (ImagePostErrorArray.Count == 0) {
+                    var timeStamp = DateTime.Now.ToString();
+                    timeStamp = timeStamp.Replace(" ", "");
+                    timeStamp = timeStamp.Replace(":", "");
+                    timeStamp = timeStamp.Replace("/", "");
+
+                    //Post Image
+                    PostImage(email, timeStamp);
+                }
+            }
+
+            ArrayList StatusPostErrorArray = new ArrayList();
+            if (ChoosePostTypeDD.SelectedValue == "StatusPost") {
+                if (StatusPostCaptionTextBox.Text == "") {
+                    StatusPostErrorArray.Add("Enter Valid Caption");
+                }
+                if (StatusPostErrorArray.Count == 0) {
+                    PostStatus(email);
+                }
+            }
+
+            
+
+           
+
+        }
+        void PostImage(String email, String timeStamp) {
+            if (FileImageUpload.HasFile)
+            {
+                string extension = System.IO.Path.GetExtension(FileImageUpload.FileName);
+
+                if (extension.ToLower() == ".jpg" || extension.ToLower() == ".png" || extension.ToLower() == ".jpeg")
+                {
+                    FileImageUpload.PostedFile.SaveAs(Server.MapPath("~/Storage/") + email + "-Post"+ timeStamp + ".png");
+                    DBConnect objDB = new DBConnect();
+                    SqlCommand objCommand = new SqlCommand();
+                    objCommand.CommandType = CommandType.StoredProcedure;
+                    objCommand.CommandText = "TP_InsertPost";
+                    objCommand.Parameters.AddWithValue("@Email", email); 
+                    objCommand.Parameters.AddWithValue("@Body", ImageCaptionTextBox.Text);
+                    objCommand.Parameters.AddWithValue("@ImageURL", email + "-Post" + timeStamp+ ".png");
+                    objCommand.Parameters.AddWithValue("@DatePosted", DateTime.Now);
+                    objCommand.Parameters.AddWithValue("@Tag", "YES");
+                    objCommand.Parameters.AddWithValue("@PostType", "IMAGEPOST");
+                    objDB.DoUpdateUsingCmdObj(objCommand);
+                    Response.Redirect(Request.Url.AbsoluteUri);
+                }
+                else
+                {
+                    Response.Write("Only .jpg, .png, or .jpeg allowed");
+                }
+            }
+        }
+
+        void PostStatus(String email) {
+            DBConnect objDB = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "InsertStatusPost";
+            objCommand.Parameters.AddWithValue("@userEmail", email);
+            objCommand.Parameters.AddWithValue("@postBody", StatusPostCaptionTextBox.Text);
+            objCommand.Parameters.AddWithValue("@datePosted", DateTime.Now);
+            objCommand.Parameters.AddWithValue("@tag", "NO");
+            objCommand.Parameters.AddWithValue("@postType", "STATUSPOST");
+            objDB.DoUpdateUsingCmdObj(objCommand);
+            Response.Redirect(Request.Url.AbsoluteUri);
+        }
+        protected void StatusPostTagDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (StatusPostTagDD.SelectedValue == "YES")
+            {
+                SetStatusTagFriendsList();
+            }
+        }
+        void SetStatusTagFriendsList() {
+            //Decoder
+            HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            //txtEmail.Text = myCookie.Values["Email"];
+            //txtPassword.Text = myCookie.Values["Password"];
+            String encryptedEmail = myCookie.Values["Email"];
+
+            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            Byte[] emailBytes;
+            String plainTextEmail;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+            MemoryStream memStream = new MemoryStream();
+            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+
+            //Email
+            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            decryptionStream.FlushFinalBlock();
+
+            memStream.Position = 0;
+            emailBytes = new Byte[memStream.Length];
+            memStream.Read(emailBytes, 0, emailBytes.Length);
+
+            decryptionStream.Close();
+            memStream.Close();
+
+            plainTextEmail = encoder.GetString(emailBytes);
+            String email = plainTextEmail;
+            //End of decoder
+
+
+            FindFriendsClass ffObject = new FindFriendsClass();
+            ffObject.userEmail = email;
+            JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
+            String jsonffObject = js.Serialize(ffObject);
+            try
+            {
+                // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
+                WebRequest request = WebRequest.Create("http://localhost:55065/api/FindFriends/FindFriendsDS/");
+                request.Method = "POST";
+                request.ContentLength = jsonffObject.Length;
+                request.ContentType = "application/json";
+
+                // Write the JSON data to the Web Request
+                StreamWriter writer = new StreamWriter(request.GetRequestStream());
+                writer.Write(jsonffObject);
+                writer.Flush();
+                writer.Close();
+
+                // Read the data from the Web Response, which requires working with streams.
+
+                WebResponse response = request.GetResponse();
+                Stream theDataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(theDataStream);
+                String data = reader.ReadToEnd();
+
+                reader.Close();
+                response.Close();
+
+                FindFriendsClass[] CreditInfoData = js.Deserialize<FindFriendsClass[]>(data);
+                StatusPostTagGV.DataSource = CreditInfoData;
+                StatusPostTagGV.DataBind();
+
+
+
+
+            }
+            catch (Exception errorEx)
+            {
+                Response.Write(errorEx.Message);
+            }
         }
     }
 }

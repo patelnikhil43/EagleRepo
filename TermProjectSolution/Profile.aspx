@@ -50,8 +50,8 @@
                
              </asp:Table>  
         </div>
-        <div id="FriendListDiv">
-            <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand">
+        <div id="FriendListDiv" class="threediv">
+            <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand" HorizontalAlign="Center">
                 <Columns>
                   <%--  <asp:TemplateField>
                         <ItemTemplate>
@@ -72,6 +72,88 @@
                   
                 </Columns>
             </asp:GridView>
+        </div>
+
+        <div class="threediv">
+            <h4>Post Content</h4>
+            <br />
+            <asp:DropDownList ID="ChoosePostTypeDD" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ChoosePostTypeDD_SelectedIndexChanged">
+                <asp:ListItem Text="Choose Type:" Value="default"></asp:ListItem>
+                <asp:ListItem Text="Photo Post" Value="PhotoPost"></asp:ListItem>
+                <asp:ListItem Text="Status Post" Value="StatusPost"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
+           
+            <div id="TypeImagePostDiv" runat="server" visible="false">
+               
+            <asp:Image ID="UserPostImage" runat="server" />
+            <br />
+                <h4>Select Image to Upload</h4>
+            <asp:FileUpload ID="FileImageUpload" runat="server" accept=".png, .jpeg, .jpg" />
+          
+            <br />
+           <asp:Label Text="Caption:" ID="ImageCaptionLabel" runat="server" />
+           <asp:TextBox ID="ImageCaptionTextBox" runat="server" Width="140" Height="80" />
+           <br />
+             <asp:Label ID="TagFriendsLabel" Text="Tag Friends?" runat="server" />
+             <asp:DropDownList ID="TagFriendsDD" AutoPostBack="true" runat="server" OnSelectedIndexChanged="TagFriendsDD_SelectedIndexChanged">
+                <asp:ListItem Text="Select" Value="default"></asp:ListItem>
+                <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
+                <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+            </asp:DropDownList>
+
+           <asp:GridView runat="server" AutoGenerateColumns="false" ID="TagFriendsGV" HorizontalAlign="Center">
+               <Columns>
+                   <asp:TemplateField HeaderText="Select">
+                       <ItemTemplate>
+                           <asp:CheckBox ID="ImagePostTagCheckBox" runat="server" />
+                       </ItemTemplate>
+                   </asp:TemplateField>
+
+                   <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" />
+                   <asp:BoundField DataField="userEmail" HeaderText="Username" SortExpression="userEmail" />
+
+               </Columns>
+               
+           </asp:GridView>
+
+            </div>
+          
+            <br />
+            <div id="TypeStatusPostDiv" runat="server" visible="false">
+            <asp:Label Text="Caption:" ID="StatusPostCaptionLabel" runat="server" />
+           <asp:TextBox ID="StatusPostCaptionTextBox" runat="server" Width="140" Height="80" />
+                <br />
+                <asp:Label ID="StatusPostTagLabel" Text="Tag Friends?" runat="server" />
+             <asp:DropDownList ID="StatusPostTagDD" AutoPostBack="true" runat="server" OnSelectedIndexChanged="StatusPostTagDD_SelectedIndexChanged" >
+                <asp:ListItem Text="Select" Value="default"></asp:ListItem>
+                <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
+                <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+            </asp:DropDownList>
+
+           <asp:GridView runat="server" AutoGenerateColumns="false" ID="StatusPostTagGV" HorizontalAlign="Center">
+               <Columns>
+                   <asp:TemplateField HeaderText="Select">
+                       <ItemTemplate>
+                           <asp:CheckBox ID="StatusPostTagCheckBox" runat="server" />
+                       </ItemTemplate>
+                   </asp:TemplateField>
+
+                   <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" />
+                   <asp:BoundField DataField="userEmail" HeaderText="Username" SortExpression="userEmail" />
+
+               </Columns>
+               
+           </asp:GridView>
+
+            </div>
+
+
+           <asp:Button Text="Post" ID="PostButton" runat="server" OnClick="PostButton_Click" />
+         </div>
+
+        <div  class="threediv">
+
         </div>
     </form>
 </body>
