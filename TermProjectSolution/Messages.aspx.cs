@@ -90,7 +90,7 @@ namespace TermProjectSolution
                 for(int i = 0; i < gvFriendsOnline.Rows.Count; i++)
                 {
                     Image myProfilePic = (Image)gvFriendsOnline.Rows[i].FindControl("imgProfilePic");
-                    myProfilePic.ImageUrl = objDB.GetField("profilePicUrl", i).ToString();
+                    myProfilePic.ImageUrl = "../Storage/" + objDB.GetField("profilePicUrl", i).ToString();
                     if(myProfilePic.ImageUrl == "")
                     {
                         myProfilePic.ImageUrl = "../Storage/default-profile.png";

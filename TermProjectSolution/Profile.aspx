@@ -50,6 +50,7 @@
             <asp:Table ID="UserProfileTable" runat="server"> 
                
              </asp:Table>  
+            <asp:Button Text="Update Profile" ID="btnUpdateProfile" runat="server" OnClick="btnUpdateProfile_Click" /> 
         </div>
         <div>
         <div id="FriendListDiv" class="threediv">
