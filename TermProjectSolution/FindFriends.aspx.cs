@@ -103,10 +103,11 @@ namespace TermProjectSolution
         protected void btnStateSearch_Click(object sender, EventArgs e)
         {
             objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "TPFindUsersByState";
+            objCommand.CommandText = "TPFindUsersByLocation";
             objCommand.Parameters.Clear();
 
             objCommand.Parameters.AddWithValue("@theState", txtState.Text);
+            objCommand.Parameters.AddWithValue("@theCity", txtCity.Text);
             DataSet mySearchResults = objDB.GetDataSetUsingCmdObj(objCommand);
 
             if (mySearchResults.Tables[0].Rows.Count > 0)

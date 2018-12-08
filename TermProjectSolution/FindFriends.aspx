@@ -69,6 +69,10 @@
                                 <asp:Label ID="lblState" runat="server" Text="State:"></asp:Label>
                                 <br />
                                 <asp:TextBox ID="txtState" runat="server"></asp:TextBox>
+                                <br />
+                                <asp:Label ID="lblCity" runat="server" Text="City:"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtCity" runat="server"></asp:TextBox>
                                 <asp:Button ID="btnStateSearch" CssClass="btnFB" runat="server" Text="Search" OnClick="btnStateSearch_Click" />
                             </div>
                         </div>
