@@ -10,7 +10,7 @@
     height: 250px;
 }
 
-#ProfileImageUpload {
+#ProfileImageUpload, #FileImageUpload {
     margin: 0 auto;
 }
 
@@ -20,4 +20,14 @@
 
 #UserProfileTable {
     padding: 10px;
+}
+
+.threediv {
+    float: left;
+    width: 33%;
+    text-align:center;
+}
+
+#ImageCaptionLabel {
+vertical-align:central;
 }
