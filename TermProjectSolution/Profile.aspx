@@ -51,6 +51,7 @@
                
              </asp:Table>  
         </div>
+        <div>
         <div id="FriendListDiv" class="threediv">
             <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand" HorizontalAlign="Center">
                 <Columns>
@@ -85,6 +86,8 @@
             </asp:DropDownList>
             <br />
            
+
+
             <div id="TypeImagePostDiv" runat="server" visible="false">
                
             <asp:Image ID="UserPostImage" runat="server" />
@@ -154,6 +157,10 @@
          </div>
 
         <div  class="threediv">
+            <asp:Label Text="Images PlaceHolder" runat="server" />
+        </div>
+        </div>
+        <div id="FeedDiv" style="clear:both">
 
         </div>
     </form>

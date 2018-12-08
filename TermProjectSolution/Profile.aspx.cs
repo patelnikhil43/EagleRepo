@@ -28,17 +28,47 @@ namespace TermProjectSolution
             //tempCookie.Values["Email"] = email;
             //tempCookie.Expires = new DateTime(2020, 2, 1);
             //Response.Cookies.Add(tempCookie);
+            //Decoder
+            HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            //txtEmail.Text = myCookie.Values["Email"];
+            //txtPassword.Text = myCookie.Values["Password"];
+            String encryptedEmail = myCookie.Values["Email"];
 
+            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            Byte[] emailBytes;
+            String plainTextEmail;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+            MemoryStream memStream = new MemoryStream();
+            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+
+            //Email
+            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            decryptionStream.FlushFinalBlock();
+
+            memStream.Position = 0;
+            emailBytes = new Byte[memStream.Length];
+            memStream.Read(emailBytes, 0, emailBytes.Length);
+
+            decryptionStream.Close();
+            memStream.Close();
+
+            plainTextEmail = encoder.GetString(emailBytes);
+            String email = plainTextEmail;
+            //End of decoder
 
             //Set User Profile Name
-            SetUserProfileName();
+            SetUserProfileName(email);
             //Set User Profile Picture
-            SetUserProfilePicture();
+            SetUserProfilePicture(email);
             //Set User Profile Information
-            SetUserProfileInformation();
+            SetUserProfileInformation(email);
             //Set Friend List
-            SetFriendList();
-           
+            SetFriendList(email);
+
+            LoadFeed(email);
 
         }
 
@@ -56,82 +86,21 @@ namespace TermProjectSolution
             Response.Redirect("Login.aspx");
         }
 
-        void SetUserProfileName()
+        void SetUserProfileName(String email)
         {
             DBConnect objDB = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPGetUserInfo";
-
-            //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
-
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
-
-            UTF8Encoding encoder = new UTF8Encoding();
-
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
-
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
-
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
-
-            decryptionStream.Close();
-            memStream.Close();
-
-            plainTextEmail = encoder.GetString(emailBytes);
-            String email = plainTextEmail;
-            //End of decoder
-
             objCommand.Parameters.AddWithValue("@email", email);
 
             DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
             UserNameLabel.Text = UserInfoDataSet.Tables[0].Rows[0]["name"].ToString();
         }
 
-        void SetUserProfilePicture()
+        void SetUserProfilePicture(String email)
         {
-            //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
-
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
-
-            UTF8Encoding encoder = new UTF8Encoding();
-
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
-
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
-
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
-
-            decryptionStream.Close();
-            memStream.Close();
-
-            plainTextEmail = encoder.GetString(emailBytes);
-            String email = plainTextEmail;
-            //End of decoder
+            
 
             //Get profile image link if exist
 
@@ -153,38 +122,9 @@ namespace TermProjectSolution
             }
         }
 
-        void SetUserProfileInformation()
+        void SetUserProfileInformation(String email)
         {
-            //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
-
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
-
-            UTF8Encoding encoder = new UTF8Encoding();
-
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
-
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
-
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
-
-            decryptionStream.Close();
-            memStream.Close();
-
-            plainTextEmail = encoder.GetString(emailBytes);
-            String email = plainTextEmail;
-            //End of decoder
+           
 
             DBConnect objDB = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
@@ -280,38 +220,9 @@ namespace TermProjectSolution
 
        
 
-        void SetFriendList()
+        void SetFriendList(String email)
         {
-            //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
-
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
-
-            UTF8Encoding encoder = new UTF8Encoding();
-
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
-
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
-
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
-
-            decryptionStream.Close();
-            memStream.Close();
-
-            plainTextEmail = encoder.GetString(emailBytes);
-            String email = plainTextEmail;
-            //End of decoder
+           
 
 
             FindFriendsClass ffObject = new FindFriendsClass();
@@ -374,9 +285,11 @@ namespace TermProjectSolution
         {
             if (ChoosePostTypeDD.SelectedValue == "PhotoPost") {
                 TypeImagePostDiv.Visible = true;
+                TypeStatusPostDiv.Visible = false;
             }
             if (ChoosePostTypeDD.SelectedValue == "StatusPost") {
                 TypeStatusPostDiv.Visible = true;
+                TypeImagePostDiv.Visible = false;
             }
         }
 
@@ -662,6 +575,32 @@ namespace TermProjectSolution
             {
                 Response.Write(errorEx.Message);
             }
+        }
+
+        void LoadFeed(String email)
+        {
+            DBConnect objDB = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TP_LoadProfileFeed";
+            objCommand.Parameters.AddWithValue("@Email", email);
+           DataSet FeedDS = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            if (FeedDS.Tables[0].Rows.Count > 0) {
+                for (int i = 0; i < FeedDS.Tables[0].Rows.Count; i++)
+                {
+                    ProfileFeed feed = (ProfileFeed)LoadControl("ProfileFeed.ascx");
+                    Posts postObject = new Posts();
+                    postObject.PostID = FeedDS.Tables[0].Rows[i][0].ToString();
+                    postObject.UserEmail = FeedDS.Tables[0].Rows[i][1].ToString();
+                    postObject.PostBody = FeedDS.Tables[0].Rows[i][2].ToString();
+                    postObject.DatePosted =DateTime.Parse(FeedDS.Tables[0].Rows[i][4].ToString());
+                    postObject.ImageURL = FeedDS.Tables[0].Rows[i][3].ToString();
+                    feed.DataBind(postObject);
+                    form1.Controls.Add(feed);
+                }
+            }
+
         }
     }
 }

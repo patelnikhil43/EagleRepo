@@ -8,7 +8,7 @@ namespace Utilities
 {
     public class Posts
     {
-        private int postID;
+        private String postID;
         private String userEmail;
         private String postingToUser;
         private String postBody;
@@ -17,7 +17,7 @@ namespace Utilities
         private String tag;
         private String postType;
 
-        public int PostID
+        public String PostID
         {
             get { return postID; }
             set { postID = value; }

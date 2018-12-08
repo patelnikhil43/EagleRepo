@@ -31,3 +31,8 @@
 #ImageCaptionLabel {
 vertical-align:central;
 }
+#FeedDiv {
+position:relative;
+    top: 694px;
+    left: -610px;
+}

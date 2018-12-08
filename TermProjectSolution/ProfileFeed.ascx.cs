@@ -21,6 +21,14 @@ namespace TermProjectSolution
             lblPostCaption.Text = post.PostBody;
             lblPostDate.Text = post.DatePosted.ToString();
             lblPostID.Text = post.PostID.ToString();
+            if (post.ImageURL.ToString() == "")
+            {
+                imgPicture.Visible = false;
+            }
+            else
+            {
+                imgPicture.ImageUrl = "../Storage/" + post.ImageURL.ToString();
+            }
         }
     }
 }
