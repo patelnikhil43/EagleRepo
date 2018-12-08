@@ -102,13 +102,67 @@ namespace TermProjectSolution
 
         protected void btnStateSearch_Click(object sender, EventArgs e)
         {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPFindUsersByState";
+            objCommand.Parameters.Clear();
 
+            objCommand.Parameters.AddWithValue("@theState", txtState.Text);
+            DataSet mySearchResults = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            if (mySearchResults.Tables[0].Rows.Count > 0)
+            {
+                gvSearchResults.DataSource = mySearchResults;
+                gvSearchResults.DataBind();
+                for (int i = 0; i < mySearchResults.Tables[0].Rows.Count; i++)
+                {
+                    String profilePicURL = mySearchResults.Tables[0].Rows[i][1].ToString();
+                    try
+                    {
+
+                        //imgProfilePic.src = profilePicURL;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+                gvSearchResults.Visible = true;
+            }
         }
 
         protected void btnOrganizationSearch_Click(object sender, EventArgs e)
         {
             objCommand.CommandType = CommandType.StoredProcedure;
-            //objCommand.CommandText
+            objCommand.CommandText = "TPFindUsersByOrganization";
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@theOrganization", txtOrganization.Text);
+            DataSet mySearchResults = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            if (mySearchResults.Tables[0].Rows.Count > 0)
+            {
+                gvSearchResults.DataSource = mySearchResults;
+                gvSearchResults.DataBind();
+                for (int i = 0; i < mySearchResults.Tables[0].Rows.Count; i++)
+                {
+                    String profilePicURL = mySearchResults.Tables[0].Rows[i][1].ToString();
+                    try
+                    {
+
+                        //imgProfilePic.src = profilePicURL;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+                gvSearchResults.Visible = true;
+            }
+        }
+
+        protected void btnAdvancedSearch_Click(object sender, EventArgs e)
+        {
+            advancedSearchContainer.Visible = true;
         }
     }
 }

@@ -67,6 +67,24 @@ namespace TermProjectSolution {
         protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
+        /// btnAdvancedSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdvancedSearch;
+        
+        /// <summary>
+        /// advancedSearchContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl advancedSearchContainer;
+        
+        /// <summary>
         /// lblAdvancedSearch control.
         /// </summary>
         /// <remarks>
