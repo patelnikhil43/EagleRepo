@@ -33,5 +33,24 @@ namespace TermProjectSolution
             Session.Abandon();
             Response.Redirect("Login.aspx");
         }
+
+        protected void ChoosePostTypeDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ChoosePostTypeDD.SelectedValue == "PhotoPost")
+            {
+                TypeImagePostDiv.Visible = true;
+                TypeStatusPostDiv.Visible = false;
+            }
+            if (ChoosePostTypeDD.SelectedValue == "StatusPost")
+            {
+                TypeStatusPostDiv.Visible = true;
+                TypeImagePostDiv.Visible = false;
+            }
+        }
+
+        protected void PostButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
