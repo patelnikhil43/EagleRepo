@@ -175,12 +175,17 @@ namespace TermProjectSolution
             inputParameter.SqlDbType = SqlDbType.NVarChar;
             objCommand.Parameters.Add(inputParameter);
 
-            inputParameter = new SqlParameter("@Privacy", PrivacyPreferenceDropDown.SelectedValue);
+            inputParameter = new SqlParameter("@ProfileInfoPrivacy", PrivacyPreferenceDropDown.SelectedValue);
             inputParameter.Direction = ParameterDirection.Input;
             inputParameter.SqlDbType = SqlDbType.NVarChar;
             objCommand.Parameters.Add(inputParameter);
 
             inputParameter = new SqlParameter("@PhotoPrivacy", PhotoPrivacyDropDown.SelectedValue);
+            inputParameter.Direction = ParameterDirection.Input;
+            inputParameter.SqlDbType = SqlDbType.NVarChar;
+            objCommand.Parameters.Add(inputParameter);
+
+            inputParameter = new SqlParameter("@FeedPrivacy", FeedPrivacyDropDown.SelectedValue);
             inputParameter.Direction = ParameterDirection.Input;
             inputParameter.SqlDbType = SqlDbType.NVarChar;
             objCommand.Parameters.Add(inputParameter);
