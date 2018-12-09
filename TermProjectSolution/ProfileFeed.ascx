@@ -1,5 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProfileFeed.ascx.cs" Inherits="TermProjectSolution.ProfileFeed" %>
 
+<style>
+    #postBox{
+        text-align: center;
+        background-color: cornflowerblue;
+        margin-top: 10px;
+        width: auto;
+    }
+</style>
 
 <div id="postBox">
     <asp:Label ID="lblPoster" Text="" runat="server"></asp:Label>

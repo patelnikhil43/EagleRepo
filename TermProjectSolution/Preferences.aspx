@@ -6,7 +6,6 @@
 <head runat="server">
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="registrationStyles"/>
     <link rel="stylesheet" href="fbStyles.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -67,7 +66,7 @@
                   <asp:ListItem Text="Dark"  Value="Dark"></asp:ListItem>
             </asp:DropDownList>
             <br />
-            <asp:Button Text="Submit" ID="SubmitPreferencesButton" runat="server" OnClick="SubmitPreferencesButton_Click" />
+            <asp:Button Text="Submit" CssClass="btnFB" ID="SubmitPreferencesButton" runat="server" OnClick="SubmitPreferencesButton_Click" />
         </div>
     </form>
 </body>

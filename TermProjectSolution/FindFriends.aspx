@@ -32,7 +32,7 @@
         </div>
     </nav>
     <form id="form1" runat="server">
-        <div style="position:absolute; top:15px; right:15px; width: 8px;">
+        <div style="position:absolute; top:15px; right:15px;">
             <asp:Button ID="btnLogOut" CssClass="btnFB" runat="server" Text="Log Out" OnClick="btnLogOut_Click"/>
         </div>
         <div>
@@ -90,7 +90,7 @@
             <br />
             <div id="searchResults" style="margin-left: 15px;">
                 <%--use a custom user control here?--%>
-                <asp:GridView ID="gvSearchResults" runat="server" AutoGenerateColumns="false" Visible="False">
+                <asp:GridView ID="gvSearchResults" CssClass="gvFB" runat="server" AutoGenerateColumns="false" Visible="False">
                     <Columns>
                         <asp:BoundField DataField="name" HeaderText="Name" />
                         <asp:BoundField DataField="email" HeaderText="Email" />
@@ -98,17 +98,12 @@
                         <asp:BoundField DataField="organization" HeaderText="Organization" />
                         <asp:TemplateField HeaderText="Profile Picture">
                             <ItemTemplate>
-                                <asp:Image ID="imgProfilePic" CssClass="imgProfilePic" runat="server" src="https://upload.wikimedia.org/wikipedia/commons/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg" />
+                                <asp:Image ID="imgProfilePic" Height="100px" Width="100px" CssClass="imgProfilePic" runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Send Request">
                             <ItemTemplate>
-                                <asp:Button ID="btnSendRequest" runat="server" Text="Send Request" OnClick="btnSendRequest_Click" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="View Profile">
-                            <ItemTemplate>
-                                <asp:Button ID="btnViewProfile" runat="server" Text="View Profile" />
+                                <asp:Button ID="btnSendRequest" CssClass="btnFB" runat="server" Text="Send Request" OnClick="btnSendRequest_Click" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

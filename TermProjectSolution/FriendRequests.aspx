@@ -43,18 +43,18 @@
             </div>
             <div id="friendRequestContainer" class="col-md-9">
                 <asp:Label ID="lblMessage" CssClass="lblLoginPrompt" runat="server" Text=""></asp:Label>
-                <asp:GridView ID="gvFriendRequests" runat="server" AutoGenerateColumns="false">
+                <asp:GridView ID="gvFriendRequests" CssClass="gvFB" runat="server" AutoGenerateColumns="false">
                     <Columns>
                         <asp:BoundField DataField="userEmail" HeaderText="Email" />
                         <asp:BoundField DataField="requestDate" HeaderText="Request Date" />
                         <asp:TemplateField HeaderText="Accept Request">
                             <ItemTemplate>
-                                <asp:Button ID="btnAcceptRequest" runat="server" Text="Accept" OnClick="btnAcceptRequest_Click" />
+                                <asp:Button ID="btnAcceptRequest" CssClass="btnFB" runat="server" Text="Accept" OnClick="btnAcceptRequest_Click" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Reject Request">
                             <ItemTemplate>
-                                <asp:Button ID="btnRejectRequest" runat="server" Text="Reject" OnClick="btnRejectRequest_Click" />
+                                <asp:Button ID="btnRejectRequest" CssClass="btnFB" runat="server" Text="Reject" OnClick="btnRejectRequest_Click" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

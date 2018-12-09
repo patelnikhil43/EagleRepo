@@ -22,6 +22,19 @@ namespace TermProjectSolution
             }
         }
 
+        public void InsertProfilePictures()
+        {
+            for (int i = 0; i < gvSearchResults.Rows.Count; i++)
+            {
+                Image myProfilePic = (Image)gvSearchResults.Rows[i].FindControl("imgProfilePic");
+                myProfilePic.ImageUrl = "../Storage/" + objDB.GetField("profilePicUrl", i).ToString();
+                if (myProfilePic.ImageUrl == "../Storage/")
+                {
+                    myProfilePic.ImageUrl = "../Storage/default-profile.png";
+                }
+            }
+        }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             //Need to use the API for this
@@ -37,19 +50,7 @@ namespace TermProjectSolution
             {
                 gvSearchResults.DataSource = mySearchResults;
                 gvSearchResults.DataBind();
-                for(int i = 0; i < mySearchResults.Tables[0].Rows.Count; i++)
-                {
-                    String profilePicURL = mySearchResults.Tables[0].Rows[i][1].ToString();
-                    try
-                    {
-                        
-                        //imgProfilePic.src = profilePicURL;
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
-                }
+                InsertProfilePictures();
                 gvSearchResults.Visible = true;
             }
         }
@@ -117,19 +118,7 @@ namespace TermProjectSolution
             {
                 gvSearchResults.DataSource = mySearchResults;
                 gvSearchResults.DataBind();
-                for (int i = 0; i < mySearchResults.Tables[0].Rows.Count; i++)
-                {
-                    String profilePicURL = mySearchResults.Tables[0].Rows[i][1].ToString();
-                    try
-                    {
-
-                        //imgProfilePic.src = profilePicURL;
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-                }
+                InsertProfilePictures();
                 gvSearchResults.Visible = true;
             }
         }
@@ -147,19 +136,7 @@ namespace TermProjectSolution
             {
                 gvSearchResults.DataSource = mySearchResults;
                 gvSearchResults.DataBind();
-                for (int i = 0; i < mySearchResults.Tables[0].Rows.Count; i++)
-                {
-                    String profilePicURL = mySearchResults.Tables[0].Rows[i][1].ToString();
-                    try
-                    {
-
-                        //imgProfilePic.src = profilePicURL;
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-                }
+                InsertProfilePictures();
                 gvSearchResults.Visible = true;
             }
         }

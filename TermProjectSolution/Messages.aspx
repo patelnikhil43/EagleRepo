@@ -75,7 +75,7 @@
                         <br />
                         
 
-                        <asp:GridView ID="gvFriendsOnline" CssClass="gvFriendsOnline" BackColor="DimGray" CellPadding="10" runat="server" AutoGenerateColumns="false" Visible="False">
+                        <asp:GridView ID="gvFriendsOnline" CssClass="gvFB" BackColor="DimGray" CellPadding="10" runat="server" AutoGenerateColumns="false" Visible="False">
                             <Columns>
                                 <asp:BoundField DataField="name" HeaderText="Name" />
                                 <asp:BoundField DataField="friendEmail" HeaderText="Email" />

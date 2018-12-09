@@ -1,5 +1,6 @@
 ﻿body {
-    padding:10px;
+    padding: 10px;
+    background-color: #98AFC7 !important;
 }
 #messageContainer {
     background-color: dodgerblue;
@@ -25,19 +26,113 @@
     width: 100%;
 }
 
+.btnFB2 {
+    color: black;
+    border-radius: 5px;
+}
+
 .lblTitle {
     font-size: 36px;
     font-weight: bold;
 }
 
-.gvFriendsOnline tr th {
+.gvFB {
+    background-color: firebrick;
+    color: black;
+}
+
+.gvFB tr th {
     padding: 5px;
 }
 
-.gvFriendsOnline tr td {
+.gvFB tr td {
     padding: 5px;
 }
 
 .txtMessage {
     width: 100%;
 }
+
+
+/*Registration*/
+#RegisterUserDetails {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#PrivacyQuestionsDiv {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#PreferencesDiv {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#PreferencesDiv {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#UserProfileInformation {
+    text-align: center;
+    width: 25%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.threediv {
+    text-align: center;
+    margin: 1px;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+    box-sizing: border-box;
+}
+
+/*#postContainer {
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#photoUploadContainer {
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: cornflowerblue;
+    color: white;
+}*/
