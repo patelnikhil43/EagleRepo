@@ -544,7 +544,7 @@ namespace TermProjectSolution
                     //Profile Info Not Available
                     NoFeedLabel.Visible = true;
                 }
-                else
+                else 
                 {
                     if (ProfileFeed.Length > 0)
                     {
