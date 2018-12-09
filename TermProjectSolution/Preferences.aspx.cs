@@ -68,7 +68,7 @@ namespace TermProjectSolution
             userSettings.Theme = ThemePreferenceDropDown.SelectedValue;
             userSettings.ProfileInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
             userSettings.PhotoPrivacy = PhotoPrivacyDropDown.SelectedValue;
-            userSettings.PersonalContactInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+            userSettings.FeedPrivacy = FeedPrivacyDropDown.SelectedValue;
 
             Session.Add("userSettings", userSettings);
 

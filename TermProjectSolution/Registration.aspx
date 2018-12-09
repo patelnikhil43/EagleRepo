@@ -80,6 +80,13 @@
                   <asp:ListItem Text="Friends-Of-Friends"  Value="FOF"></asp:ListItem>
             </asp:DropDownList>
             <br />
+            <asp:Label runat="server" Text="Feed Privacy Preference: " ID="FeedPrivacyLabel" />
+            <asp:DropDownList ID="FeedPrivacyDropDown" runat="server">
+                  <asp:ListItem Text="Public" Selected="True" Value="Public"></asp:ListItem>
+                  <asp:ListItem Text="Friends" Value="Friends"></asp:ListItem>
+                  <asp:ListItem Text="Friends-Of-Friends"  Value="FOF"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
             <asp:Label runat="server" Text="Theme Preference: " ID="ThemePreferenceLabel" />
             <asp:DropDownList ID="ThemePreferenceDropDown" runat="server">
                   <asp:ListItem Text="Default" Selected="True" Value="Default"></asp:ListItem>

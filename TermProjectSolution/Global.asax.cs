@@ -22,7 +22,7 @@ namespace TermProjectSolution
 
         protected void Session_Start(object sender, EventArgs e)
         {
-
+            Session.Add("seshStart", System.DateTime.Now.ToShortDateString());
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

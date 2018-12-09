@@ -13,7 +13,7 @@ namespace Utilities
         private String theme;
         private String profileInfoPrivacy;
         private String photoPrivacy;
-        private String personalContactInfoPrivacy;
+        private String feedPrivacy;
 
         public String LoginPreference
         {
@@ -35,10 +35,10 @@ namespace Utilities
             get { return photoPrivacy; }
             set { photoPrivacy = value; }
         }
-        public String PersonalContactInfoPrivacy
+        public String FeedPrivacy
         {
-            get { return personalContactInfoPrivacy; }
-            set { personalContactInfoPrivacy = value; }
+            get { return feedPrivacy; }
+            set { feedPrivacy = value; }
         }
     }
 }

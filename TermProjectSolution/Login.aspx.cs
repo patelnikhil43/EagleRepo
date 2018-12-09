@@ -171,7 +171,7 @@ namespace TermProjectSolution
                     else
                     {
                         loginSettings.Theme = "Default";
-                        loginSettings.PersonalContactInfoPrivacy = "Friends";
+                        loginSettings.FeedPrivacy = "Friends";
                         loginSettings.PhotoPrivacy = "Friends";
                         loginSettings.ProfileInfoPrivacy = "Friends";
                     }

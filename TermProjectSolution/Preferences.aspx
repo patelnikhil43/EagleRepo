@@ -39,32 +39,40 @@
              <asp:Label runat="server" text="Preferences" ID="RegisterPreferencesLabel"></asp:Label>
             <br />
             <asp:Label runat="server" Text="Login Preference: " ID="LoginPreferenceLabel" />
-            <asp:DropDownList ID="LoginPreferenceDropDown" runat="server">
+            <asp:DropDownList ID="LoginPreferenceDropDown" ForeColor="Black" runat="server">
                   <asp:ListItem Text="None" Selected="True" Value="NONE"></asp:ListItem>
                   <asp:ListItem Text="Auto-Login" Value="Auto-Login"></asp:ListItem>
                   <asp:ListItem Text="Fast-Login"  Value="Fast-Login"></asp:ListItem>
             </asp:DropDownList>
             <br />
              <asp:Label runat="server" Text="Privacy Preference: " ID="PrivacyPreferenceLabel" />
-            <asp:DropDownList ID="PrivacyPreferenceDropDown" runat="server">
+            <asp:DropDownList ID="PrivacyPreferenceDropDown" ForeColor="Black" runat="server">
                   <asp:ListItem Text="Public" Selected="True" Value="Public"></asp:ListItem>
                   <asp:ListItem Text="Friends" Value="Friends"></asp:ListItem>
                   <asp:ListItem Text="Friends-Of-Friends"  Value="FOF"></asp:ListItem>
             </asp:DropDownList>
             <br />
              <asp:Label runat="server" Text="Photo Privacy Preference: " ID="PhotoPrivacyPreferenceLabel" />
-            <asp:DropDownList ID="PhotoPrivacyDropDown" runat="server">
+            <asp:DropDownList ID="PhotoPrivacyDropDown" ForeColor="Black" runat="server">
+                  <asp:ListItem Text="Public" Selected="True" Value="Public"></asp:ListItem>
+                  <asp:ListItem Text="Friends" Value="Friends"></asp:ListItem>
+                  <asp:ListItem Text="Friends-Of-Friends"  Value="FOF"></asp:ListItem>
+            </asp:DropDownList>
+             <br />
+            <asp:Label runat="server" Text="Feed Privacy Preference: " ID="FeedPrivacyLabel" />
+            <asp:DropDownList ID="FeedPrivacyDropDown" ForeColor="Black" runat="server">
                   <asp:ListItem Text="Public" Selected="True" Value="Public"></asp:ListItem>
                   <asp:ListItem Text="Friends" Value="Friends"></asp:ListItem>
                   <asp:ListItem Text="Friends-Of-Friends"  Value="FOF"></asp:ListItem>
             </asp:DropDownList>
             <br />
             <asp:Label runat="server" Text="Theme Preference: " ID="ThemePreferenceLabel" />
-            <asp:DropDownList ID="ThemePreferenceDropDown" runat="server">
+            <asp:DropDownList ID="ThemePreferenceDropDown" ForeColor="Black" runat="server">
                   <asp:ListItem Text="Default" Selected="True" Value="Default"></asp:ListItem>
                   <asp:ListItem Text="Light" Value="Light"></asp:ListItem>
                   <asp:ListItem Text="Dark"  Value="Dark"></asp:ListItem>
             </asp:DropDownList>
+            <br />
             <br />
             <asp:Button Text="Submit" CssClass="btnFB" ID="SubmitPreferencesButton" runat="server" OnClick="SubmitPreferencesButton_Click" />
         </div>
