@@ -23,7 +23,10 @@ namespace TermProjectSolution
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
         }
 
         protected void SubmitPreferencesButton_Click(object sender, EventArgs e)

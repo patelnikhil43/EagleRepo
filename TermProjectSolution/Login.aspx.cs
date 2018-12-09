@@ -133,6 +133,7 @@ namespace TermProjectSolution
                     //might need to switch this to a UserAccount Object, not sure tho
                     Session.Add("userEmail", txtEmail.Text);
                     Session.Add("userPassword", txtPassword.Text);
+                    
 
                     if(objDB.GetField("userSettings", 0) != System.DBNull.Value)
                     {

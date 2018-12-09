@@ -22,6 +22,10 @@ namespace TermProjectSolution
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
             if (!IsPostBack) {
                 SetUserProfileName();
                 SetUserProfilePicture();

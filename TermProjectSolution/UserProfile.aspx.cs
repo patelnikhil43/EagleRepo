@@ -27,7 +27,10 @@ namespace TermProjectSolution
             //tempCookie.Values["Email"] = email;
             //tempCookie.Expires = new DateTime(2020, 2, 1);
             //Response.Cookies.Add(tempCookie);
-
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
 
             //Set User Profile Name
             SetUserProfileName();

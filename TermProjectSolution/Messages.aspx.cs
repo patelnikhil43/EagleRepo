@@ -17,6 +17,10 @@ namespace TermProjectSolution
         SqlCommand objCommand = new SqlCommand();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
             //getfriends and load into gridview
             getFriendsOnline();
             //if (gvFriendsOnline.Rows.Count > 0)
