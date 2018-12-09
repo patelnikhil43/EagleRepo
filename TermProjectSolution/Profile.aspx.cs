@@ -68,6 +68,8 @@ namespace TermProjectSolution
             //Set Friend List
             SetFriendList(email);
 
+            SetImageGallery(email);
+
             LoadFeed(email);
 
         }
@@ -599,6 +601,136 @@ namespace TermProjectSolution
                     feed.DataBind(postObject);
                     form1.Controls.Add(feed);
                 }
+            }
+
+        }
+
+        protected void UploadImageGalleryButton_Click(object sender, EventArgs e)
+        {
+
+            //Decoder
+            HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            //txtEmail.Text = myCookie.Values["Email"];
+            //txtPassword.Text = myCookie.Values["Password"];
+            String encryptedEmail = myCookie.Values["Email"];
+
+            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            Byte[] emailBytes;
+            String plainTextEmail;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+            MemoryStream memStream = new MemoryStream();
+            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+
+            //Email
+            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            decryptionStream.FlushFinalBlock();
+
+            memStream.Position = 0;
+            emailBytes = new Byte[memStream.Length];
+            memStream.Read(emailBytes, 0, emailBytes.Length);
+
+            decryptionStream.Close();
+            memStream.Close();
+
+            plainTextEmail = encoder.GetString(emailBytes);
+            String email = plainTextEmail;
+            //End of decoder
+
+            if (FileUploadImageGallery.HasFile)
+            {
+                string extension = System.IO.Path.GetExtension(FileUploadImageGallery.FileName);
+
+                if (extension.ToLower() == ".jpg" || extension.ToLower() == ".png" || extension.ToLower() == ".jpeg")
+                {
+                    if (ImageCollectionCaptionTextBox.Text != "")
+                    {
+                        var timeStamp = DateTime.Now.ToString();
+                        timeStamp = timeStamp.Replace(" ", "");
+                        timeStamp = timeStamp.Replace(":", "");
+                        timeStamp = timeStamp.Replace("/", "");
+
+                        FileUploadImageGallery.PostedFile.SaveAs(Server.MapPath("~/Storage/") + email + "-ImageGallery" + timeStamp + ".png");
+                        DBConnect objDB = new DBConnect();
+                        SqlCommand objCommand = new SqlCommand();
+                        objCommand.CommandType = CommandType.StoredProcedure;
+                        objCommand.CommandText = "TP_PostImageGallery";
+                        objCommand.Parameters.AddWithValue("@Email", email);
+                        objCommand.Parameters.AddWithValue("@ImageURL", email + "-ImageGallery" + timeStamp + ".png");
+                        objCommand.Parameters.AddWithValue("@Caption", ImageCollectionCaptionTextBox.Text);
+                       
+                        objDB.DoUpdateUsingCmdObj(objCommand);
+                        Response.Redirect(Request.Url.AbsoluteUri);
+                    }
+                    else {
+                        Response.Write("Enter valid caption");
+                    }
+                }
+                else
+                {
+                    Response.Write("Only .jpg, .png, or .jpeg allowed");
+                }
+            }
+            else {
+                Response.Write("Select Valid File");
+            }
+        }
+
+        void SetImageGallery(String email) {
+            DBConnect objDB = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TP_RetrieveImageGallery";
+            objCommand.Parameters.AddWithValue("@Email", email);
+            DataSet ImageGDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            ImageGalleryGV.DataSource = ImageGDS;
+            ImageGalleryGV.DataBind();
+           
+
+            if (ImageGalleryGV.Rows.Count == 0)
+            {
+                NoImagesLabel.Visible = true;
+            }
+            else {
+                for (var i = 0; i < ImageGalleryGV.Rows.Count; i++) {
+                    Image PhotoCollectionImage = (Image)ImageGalleryGV.Rows[i].FindControl("GalleryCollectionImages");
+                    //Label ImageIDLabel = (Label)ImageGalleryGV.Rows[i].FindControl("GalleryImageID");
+                    //var tempPhotoID = objDB.GetField("ImageID", i).ToString();
+                    var tempURL = "../Storage/" + objDB.GetField("ImageURL", i).ToString();
+                    PhotoCollectionImage.ImageUrl = tempURL;
+                    //ImageIDLabel.Text = tempPhotoID;
+                }
+                
+            }
+
+        }
+
+     
+
+        protected void ImageGalleryGV_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = ImageGalleryGV.Rows[index];
+
+           
+            int PhotoID = int.Parse((row.FindControl("GalleryImageID") as Label).Text.ToString());
+            String ImageURL = (row.FindControl("GalleryImageURL") as Label).Text.ToString();
+
+            DBConnect objDB = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TP_DeleteImageFromGallery";
+            objCommand.Parameters.AddWithValue("@ImageID", PhotoID);
+            int ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+
+            if (ResponseReceived == 1 && ImageURL != "")
+            {
+
+                File.Delete(Server.MapPath("Storage") + "\\" + ImageURL);
+
+                Response.Redirect(Request.Url.AbsoluteUri);
             }
 
         }

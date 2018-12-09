@@ -157,9 +157,46 @@
          </div>
 
         <div  class="threediv">
-            <asp:Label Text="Images PlaceHolder" runat="server" />
+            <h4>Photo Gallery</h4>
+            <h5>Select an image to upload</h5>
+            <asp:FileUpload ID="FileUploadImageGallery" runat="server" accept=".png, .jpeg, .jpg" />
+            <br />
+            <asp:Label Text="Caption" ID="ImageCollectionCaptionLabel" runat="server"></asp:Label>
+            <asp:TextBox id="ImageCollectionCaptionTextBox" runat="server" />
+            <br />
+            <asp:Button Text="Save" ID="UploadImageGalleryButton" runat="server" OnClick="UploadImageGalleryButton_Click" /> 
+      
+            <br />
+            <asp:Label ID="NoImagesLabel" Text="Sorry! No Images Available. Upload some!" runat="server" Visible="false" />
+
+            <asp:GridView runat="server" ID="ImageGalleryGV" AutoGenerateColumns="False" OnRowCommand="ImageGalleryGV_RowCommand">
+                <Columns>
+                   
+                     <asp:TemplateField HeaderText="Your Images">
+                                    <ItemTemplate>
+                                        <asp:Image ID="GalleryCollectionImages" runat="server" Height="150px" Width="150px"/>
+                                    </ItemTemplate>
+                     </asp:TemplateField>
+
+                    <asp:BoundField DataField="caption" HeaderText="Caption" SortExpression="caption" />
+                     <asp:TemplateField visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="GalleryImageID" runat="server" Text='<%# Eval("ImageID") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="GalleryImageURL" runat="server" Text='<%# Eval("ImageURL") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                     <asp:ButtonField Text="DELETE" />
+                </Columns>
+
+            </asp:GridView>
+            <br />
+            </div>
         </div>
-        </div>
+
         <div id="FeedDiv" style="clear:both">
 
         </div>
