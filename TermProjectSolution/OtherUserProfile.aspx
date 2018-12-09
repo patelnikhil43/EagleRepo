@@ -50,7 +50,9 @@
                
              </asp:Table>  
         </div>
-         <div id="FriendListDiv">
+
+         <div id="FriendListDiv" class="threediv"
+             >
             <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand" >
                 <Columns>
                   <%--  <asp:TemplateField>
