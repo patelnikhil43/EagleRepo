@@ -35,6 +35,9 @@
         <div style="position:absolute; top:15px; right:15px;">
             <asp:Button ID="btnLogOut" CssClass="btnFB" runat="server" Text="Log Out" OnClick="btnLogOut_Click" />
         </div>
+        <div>
+            <asp:Label ID="lblUserNameFeed" CssClass="lblUserNameFeed" runat="server" Text=""></asp:Label>
+        </div>
     </form>
 </body>
 </html>

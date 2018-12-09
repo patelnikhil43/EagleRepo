@@ -15,7 +15,7 @@
 <body>
     <script>
         $(document).ready(function () {
-            var email = $.cookie('ViewpProfile');
+            var email = $.cookie('ViewProfile');
             $.ajax({
                 url: "http://localhost:55065/api/GetProfileInfo/GetName/" + email,
                 type: 'GET',

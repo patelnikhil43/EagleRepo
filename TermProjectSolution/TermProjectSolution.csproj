@@ -73,6 +73,7 @@
     <Content Include="FriendRequests.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
+    <Content Include="LoginPictures.aspx" />
     <Content Include="MessageBox.ascx" />
     <Content Include="MessageConversation.aspx" />
     <Content Include="Messages.aspx" />
@@ -122,6 +123,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPictures.aspx.cs">
+      <DependentUpon>LoginPictures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginPictures.aspx.designer.cs">
+      <DependentUpon>LoginPictures.aspx</DependentUpon>
     </Compile>
     <Compile Include="MessageBox.ascx.cs">
       <DependentUpon>MessageBox.ascx</DependentUpon>

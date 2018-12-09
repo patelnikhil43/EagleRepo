@@ -20,6 +20,13 @@ namespace TermProjectSolution
             {
                 Response.Redirect("NoAccess.aspx");
             }
+            else
+            {
+                HttpCookie myCookie = new HttpCookie("myEmail");
+                myCookie.Values["email"] = Session["userEmail"].ToString();
+                myCookie.Expires = new DateTime(2020, 2, 1);
+                Response.Cookies.Add(myCookie);
+            }
         }
 
         protected void btnLogOut_Click(object sender, EventArgs e)

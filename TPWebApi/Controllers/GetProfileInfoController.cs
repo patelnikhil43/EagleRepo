@@ -51,21 +51,21 @@ namespace TPWebApi.Controllers
             return name;
         }
 
-        [HttpGet("{email}")]
-        [Route("GetPreferences")]  //api/GetProfileInfo/GetName/"email"
-        public String GetPreferences(String email)
-        {
-            DBConnect objDB = new DBConnect();
-            SqlCommand objCommand = new SqlCommand();
-            objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "TPGetPreferences";
-            objCommand.Parameters.AddWithValue("@theUserEmail", email);
+        //[HttpGet("{email}")]
+        //[Route("GetPreferences")]  //api/GetProfileInfo/GetName/"email"
+        //public String GetPreferences(String email)
+        //{
+        //    DBConnect objDB = new DBConnect();
+        //    SqlCommand objCommand = new SqlCommand();
+        //    objCommand.CommandType = CommandType.StoredProcedure;
+        //    objCommand.CommandText = "TPGetPreferences";
+        //    objCommand.Parameters.AddWithValue("@theUserEmail", email);
 
-            DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
-            //deserialize settings object here or pass back and deserialize when you get it in preferences
-            String userPreferences = UserInfoDataSet.Tables[0].Rows[0][0].ToString();
-            //look at login to figure out deserialization biz
-            return userPreferences;
-        }
+        //    DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
+        //    //deserialize settings object here or pass back and deserialize when you get it in preferences
+        //    String userPreferences = UserInfoDataSet.Tables[0].Rows[0][0].ToString();
+        //    //look at login to figure out deserialization biz
+        //    return userPreferences;
+        //}
     }
 }
