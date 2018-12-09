@@ -132,6 +132,12 @@
 
             </asp:GridView>
         </div>
+         <div id="FeedDiv" style="clear: both">
+
+        </div>
+        <div>
+            <asp:Label id="NoFeedLabel" Text="No Feed Available" runat="server" Visible="false" />
+        </div>
     </form>
 </body>
 </html>

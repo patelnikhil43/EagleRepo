@@ -48,6 +48,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="Posts.cs" />
     <Compile Include="Profile.cs" />
+    <Compile Include="ProfileFeedClass.cs" />
     <Compile Include="ProfileRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
