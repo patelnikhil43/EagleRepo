@@ -30,6 +30,19 @@ namespace Utilities
             return UserInfoDataSet.Tables[0].Rows[0]["ProfileInfoPrivacy"].ToString();
 
         }
+        public String CheckRequestedUserPhotoSetting(String RequestedUserEmail)
+        {
+
+            DBConnect objDB = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TP_RequestedUserPhotoStatus";
+            objCommand.Parameters.AddWithValue("@Email", RequestedUserEmail);
+
+            DataSet UserInfoDataSet = objDB.GetDataSetUsingCmdObj(objCommand);
+            return UserInfoDataSet.Tables[0].Rows[0]["PhotoPrivacy"].ToString();
+
+        }
 
         public List<Profile> RetreiveProfileInfo(String RequestingUser, String RequestedUserEmail, String privacySetting)
         {

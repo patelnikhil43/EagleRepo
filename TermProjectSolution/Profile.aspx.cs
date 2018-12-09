@@ -734,5 +734,10 @@ namespace TermProjectSolution
             }
 
         }
+
+        protected void btnUpdateProfile_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("UpdateProfile.aspx");
+        }
     }
 }

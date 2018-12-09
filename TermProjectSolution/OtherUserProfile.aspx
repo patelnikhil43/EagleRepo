@@ -42,17 +42,17 @@
             
             <asp:Image ID="UserProfileImage" runat="server" />
             <br />
-            <asp:FileUpload ID="ProfileImageUpload" runat="server" accept=".png, .jpeg, .jpg" />
-            <asp:Button Text="Upload" ID="ChangeUserProfileImageButton" runat="server" OnClick="ChangeUserProfileImageButton_Click" />
-            </div>
+                </div>
         <div id="UserProfileInformation">
             <asp:Table ID="UserProfileTable" runat="server"> 
                
              </asp:Table>  
         </div>
 
-         <div id="FriendListDiv" class="threediv"
-             >
+         <div id="FriendListDiv" class="threediv">
+
+             <asp:Label Text="No Friends Found, Make Friends!" ID="NoFriendsLabel" runat="server" visible="false"/>
+
             <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand" >
                 <Columns>
                   <%--  <asp:TemplateField>
@@ -60,7 +60,11 @@
                             <asp:Image ID="UserFriendImage" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>--%>
-                    <asp:BoundField DataField="friendEmail" SortExpression="friendEmail" Visible="false" />
+                   <asp:TemplateField visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="friendEmailID" runat="server" Text='<%# Eval("userEmail") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="name" HeaderText="Friends List" SortExpression="name" />
                   
                   
@@ -68,6 +72,64 @@
                   
                   
                 </Columns>
+            </asp:GridView>
+        </div>
+
+        <div class="threediv">
+            <h4>Post Content</h4>
+            <br />
+            <asp:DropDownList ID="ChoosePostTypeDD" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ChoosePostTypeDD_SelectedIndexChanged" >
+                <asp:ListItem Text="Choose Type:" Value="default"></asp:ListItem>
+                <asp:ListItem Text="Photo Post" Value="PhotoPost"></asp:ListItem>
+                <asp:ListItem Text="Status Post" Value="StatusPost"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
+
+            <div id="TypeImagePostDiv" runat="server" visible="false">
+               
+            <asp:Image ID="UserPostImage" runat="server" />
+            <br />
+                <h4>Select Image to Upload</h4>
+            <asp:FileUpload ID="FileImageUpload" runat="server" accept=".png, .jpeg, .jpg" />
+          
+            <br />
+           <asp:Label Text="Caption:" ID="ImageCaptionLabel" runat="server" />
+           <asp:TextBox ID="ImageCaptionTextBox" runat="server" Width="140" Height="80" />
+          </div>
+           <br />
+            <div id="TypeStatusPostDiv" runat="server" visible="false">
+            <asp:Label Text="Caption:" ID="StatusPostCaptionLabel" runat="server" />
+           <asp:TextBox ID="StatusPostCaptionTextBox" runat="server" Width="140" Height="80" />
+                <br />
+             </div>
+            <asp:Button Text="Post" ID="PostButton" runat="server" OnClick="PostButton_Click"  />
+         </div>
+
+        <div class="threediv">
+            <asp:Label Text="No Images Available" ID="NoImagesLabel" runat="server" Visible="false"/>
+             <asp:GridView runat="server" ID="ImageGalleryGV" AutoGenerateColumns="False">
+                <Columns>
+                   
+                     <asp:TemplateField HeaderText="Your Images">
+                                    <ItemTemplate>
+                                        <asp:Image ID="GalleryCollectionImages" runat="server" Height="150px" Width="150px"/>
+                                    </ItemTemplate>
+                     </asp:TemplateField>
+
+                    <asp:BoundField DataField="caption" HeaderText="Caption" SortExpression="caption" />
+                     <asp:TemplateField visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="GalleryImageID" runat="server" Text='<%# Eval("ImageID") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="GalleryImageURL" runat="server" Text='<%# Eval("ImageURL") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                     
+                </Columns>
+
             </asp:GridView>
         </div>
     </form>

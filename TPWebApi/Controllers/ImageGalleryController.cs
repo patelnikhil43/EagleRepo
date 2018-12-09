@@ -5,19 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Utilities;
-
 namespace TPWebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/GetProfileInfo")]
-    public class GetProfileInfoController : Controller
+    [Route("api/ImageGallery")]
+    public class ImageGalleryController : Controller
     {
+
         [HttpPost]
-        [Route("GetProfileInfoMethod")]
-        public List<Profile> Post([FromBody] ProfileRequest RequestObject)
+        [Route("GetImages")]
+        public List<GalleryImagesClass> Post([FromBody] ProfileRequest RequestObject)
         {
             Profile ProfileObj = new Profile();
-         
+            GalleryImagesClass GalleryObject = new GalleryImagesClass();
             //Check token
             if (RequestObject.Token == "1234")
             {
@@ -26,7 +26,7 @@ namespace TPWebApi.Controllers
                 String settingRetrieved = ProfileObj.CheckRequestedUserPrivacySetting(RequestObject.RequestedEmail);
 
                 //Retreive Info
-                return ProfileObj.RetreiveProfileInfo(RequestObject.RequestingEmail, RequestObject.RequestedEmail, settingRetrieved);
+                return GalleryObject.retrievePhotosList(RequestObject.RequestingEmail, RequestObject.RequestedEmail, settingRetrieved);
 
             }
             else
@@ -34,7 +34,5 @@ namespace TPWebApi.Controllers
                 return null;
             }
         }
-
-        
     }
 }

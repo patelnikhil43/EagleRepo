@@ -44,6 +44,7 @@
     <Compile Include="Connection.cs" />
     <Compile Include="FindFriendsClass.cs" />
     <Compile Include="Friend.cs" />
+    <Compile Include="GalleryImagesClass.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Posts.cs" />
     <Compile Include="Profile.cs" />
