@@ -60,7 +60,7 @@ namespace TermProjectSolution
             //End of decoder
 
             //Set User Profile Name
-            SetUserProfileName(email);
+            //SetUserProfileName(email);
             //Set User Profile Picture
             SetUserProfilePicture(email);
             //Set User Profile Information

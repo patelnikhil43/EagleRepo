@@ -13,6 +13,18 @@
     <link rel="stylesheet" href="Profile.css" type="text/css" />
 </head>
 <body>
+    <script>
+        $(document).ready(function () {
+            var email = $.cookie('ViewpProfile'); 
+            $.ajax({
+                url: "http://localhost:55065/api/GetProfileInfo/GetName/" + email,
+                type: 'GET',
+                success: function (name) {
+                    document.getElementById("UserNameLabel").innerText = name;
+                }
+            });
+            
+    </script>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="row">

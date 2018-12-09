@@ -39,7 +39,7 @@
             <div class="col-md-3">
                 <asp:Label ID="lblTitle" CssClass="lblLoginPrompt" runat="server" Text="Friend Requests"></asp:Label>
                 <br />
-                <asp:Button ID="btnRefresh" runat="server" Text="Refresh" OnClick="btnRefresh_Click" />
+                <asp:Button ID="btnRefresh" CssClass="btnFB" runat="server" Text="Refresh" OnClick="btnRefresh_Click" />
             </div>
             <div id="friendRequestContainer" class="col-md-9">
                 <asp:Label ID="lblMessage" CssClass="lblLoginPrompt" runat="server" Text=""></asp:Label>
