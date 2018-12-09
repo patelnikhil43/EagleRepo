@@ -30,34 +30,34 @@ namespace TermProjectSolution
             if (!IsPostBack) {
 
                 //Decoder
-                HttpCookie myCookie = Request.Cookies["LoginCookie"];
-                //txtEmail.Text = myCookie.Values["Email"];
-                //txtPassword.Text = myCookie.Values["Password"];
-                String encryptedEmail = myCookie.Values["Email"];
+                //HttpCookie myCookie = Request.Cookies["LoginCookie"];
+                ////txtEmail.Text = myCookie.Values["Email"];
+                ////txtPassword.Text = myCookie.Values["Password"];
+                //String encryptedEmail = myCookie.Values["Email"];
 
-                Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-                Byte[] emailBytes;
-                String plainTextEmail;
+                //Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+                //Byte[] emailBytes;
+                //String plainTextEmail;
 
-                UTF8Encoding encoder = new UTF8Encoding();
+                //UTF8Encoding encoder = new UTF8Encoding();
 
-                RijndaelManaged rmEncryption = new RijndaelManaged();
-                MemoryStream memStream = new MemoryStream();
-                CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+                //RijndaelManaged rmEncryption = new RijndaelManaged();
+                //MemoryStream memStream = new MemoryStream();
+                //CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
 
-                //Email
-                decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-                decryptionStream.FlushFinalBlock();
+                ////Email
+                //decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+                //decryptionStream.FlushFinalBlock();
 
-                memStream.Position = 0;
-                emailBytes = new Byte[memStream.Length];
-                memStream.Read(emailBytes, 0, emailBytes.Length);
+                //memStream.Position = 0;
+                //emailBytes = new Byte[memStream.Length];
+                //memStream.Read(emailBytes, 0, emailBytes.Length);
 
-                decryptionStream.Close();
-                memStream.Close();
+                //decryptionStream.Close();
+                //memStream.Close();
 
-                plainTextEmail = encoder.GetString(emailBytes);
-                String RequestingUserEmail = plainTextEmail;
+                //plainTextEmail = encoder.GetString(emailBytes);
+                String RequestingUserEmail = Session["userEmail"].ToString();
                 //End of decoder
 
               
@@ -309,34 +309,34 @@ namespace TermProjectSolution
         protected void FriendListGV_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
+            //HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            ////txtEmail.Text = myCookie.Values["Email"];
+            ////txtPassword.Text = myCookie.Values["Password"];
+            //String encryptedEmail = myCookie.Values["Email"];
 
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
+            //Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            //Byte[] emailBytes;
+            //String plainTextEmail;
 
-            UTF8Encoding encoder = new UTF8Encoding();
+            //UTF8Encoding encoder = new UTF8Encoding();
 
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+            //RijndaelManaged rmEncryption = new RijndaelManaged();
+            //MemoryStream memStream = new MemoryStream();
+            //CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
 
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
+            ////Email
+            //decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            //decryptionStream.FlushFinalBlock();
 
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
+            //memStream.Position = 0;
+            //emailBytes = new Byte[memStream.Length];
+            //memStream.Read(emailBytes, 0, emailBytes.Length);
 
-            decryptionStream.Close();
-            memStream.Close();
+            //decryptionStream.Close();
+            //memStream.Close();
 
-            plainTextEmail = encoder.GetString(emailBytes);
-            String RequestingUserEmail = plainTextEmail;
+            //plainTextEmail = encoder.GetString(emailBytes);
+            String RequestingUserEmail = Session["userEmail"].ToString();
             //End of decoder
 
             int index = Convert.ToInt32(e.CommandArgument);
