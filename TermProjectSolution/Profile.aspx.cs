@@ -23,44 +23,48 @@ namespace TermProjectSolution
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
             //UserEmail Cookie
             //HttpCookie tempCookie = new HttpCookie("UserEmailCookie");
             //tempCookie.Values["Email"] = email;
             //tempCookie.Expires = new DateTime(2020, 2, 1);
             //Response.Cookies.Add(tempCookie);
             //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
+            //HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            ////txtEmail.Text = myCookie.Values["Email"];
+            ////txtPassword.Text = myCookie.Values["Password"];
+            //String encryptedEmail = myCookie.Values["Email"];
 
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
+            //Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            //Byte[] emailBytes;
+            //String plainTextEmail;
 
-            UTF8Encoding encoder = new UTF8Encoding();
+            //UTF8Encoding encoder = new UTF8Encoding();
 
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+            //RijndaelManaged rmEncryption = new RijndaelManaged();
+            //MemoryStream memStream = new MemoryStream();
+            //CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
 
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
+            ////Email
+            //decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            //decryptionStream.FlushFinalBlock();
 
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
+            //memStream.Position = 0;
+            //emailBytes = new Byte[memStream.Length];
+            //memStream.Read(emailBytes, 0, emailBytes.Length);
 
-            decryptionStream.Close();
-            memStream.Close();
+            //decryptionStream.Close();
+            //memStream.Close();
 
-            plainTextEmail = encoder.GetString(emailBytes);
-            String email = plainTextEmail;
+            //plainTextEmail = encoder.GetString(emailBytes);
+            String email = Session["userEmail"].ToString();
             //End of decoder
 
             //Set User Profile Name
-            SetUserProfileName(email);
+            //SetUserProfileName(email);
             //Set User Profile Picture
             SetUserProfilePicture(email);
             //Set User Profile Information

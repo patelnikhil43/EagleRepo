@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link rel="stylesheet" href="registrationStyles.css" />
     <title></title>
 </head>
 <body>
@@ -67,6 +68,13 @@
             <br />
              <asp:Label runat="server" Text="Privacy Preference: " ID="PrivacyPreferenceLabel" />
             <asp:DropDownList ID="PrivacyPreferenceDropDown" runat="server">
+                  <asp:ListItem Text="Public" Selected="True" Value="Public"></asp:ListItem>
+                  <asp:ListItem Text="Friends" Value="Friends"></asp:ListItem>
+                  <asp:ListItem Text="Friends-Of-Friends"  Value="FOF"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
+            <asp:Label runat="server" Text="Photo Privacy Preference: " ID="PhotoPrivacyPreferenceLabel" />
+            <asp:DropDownList ID="PhotoPrivacyDropDown" runat="server">
                   <asp:ListItem Text="Public" Selected="True" Value="Public"></asp:ListItem>
                   <asp:ListItem Text="Friends" Value="Friends"></asp:ListItem>
                   <asp:ListItem Text="Friends-Of-Friends"  Value="FOF"></asp:ListItem>

@@ -47,16 +47,21 @@ namespace TermProjectSolution
             BinaryFormatter serializer = new BinaryFormatter();
             MemoryStream memoryStream = new MemoryStream();
             Settings userSettings = (Settings)Session["userSettings"];
-            serializer.Serialize(memoryStream, userSettings);
-            Byte[] byteSettings = memoryStream.ToArray();
+            if (userSettings != null)
+            {
 
-            objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "TPUpdateUserSettings";
 
-            objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
-            objCommand.Parameters.AddWithValue("@theSettings", byteSettings);
+                serializer.Serialize(memoryStream, userSettings);
+                Byte[] byteSettings = memoryStream.ToArray();
 
-            int ResponseRecevied = objDB.DoUpdateUsingCmdObj(objCommand);
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPUpdateUserSettings";
+
+                objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+                objCommand.Parameters.AddWithValue("@theSettings", byteSettings);
+
+                int ResponseRecevied = objDB.DoUpdateUsingCmdObj(objCommand);
+            }
         }
 
         protected void Application_End(object sender, EventArgs e)
