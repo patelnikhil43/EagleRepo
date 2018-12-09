@@ -346,6 +346,24 @@ namespace TermProjectSolution {
         protected global::System.Web.UI.WebControls.DropDownList PrivacyPreferenceDropDown;
         
         /// <summary>
+        /// PhotoPrivacyPreferenceLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PhotoPrivacyPreferenceLabel;
+        
+        /// <summary>
+        /// PhotoPrivacyDropDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PhotoPrivacyDropDown;
+        
+        /// <summary>
         /// ThemePreferenceLabel control.
         /// </summary>
         /// <remarks>

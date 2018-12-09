@@ -56,13 +56,18 @@ namespace TermProjectSolution
             inputParameter.SqlDbType = SqlDbType.NVarChar;
             objCommand.Parameters.Add(inputParameter);
 
+            inputParameter = new SqlParameter("@PhotoPrivacy", PhotoPrivacyDropDown.SelectedValue);
+            inputParameter.Direction = ParameterDirection.Input;
+            inputParameter.SqlDbType = SqlDbType.NVarChar;
+            objCommand.Parameters.Add(inputParameter);
+
             int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
             Settings userSettings = new Settings();
             userSettings.LoginPreference = LoginPreferenceDropDown.SelectedValue;
             userSettings.Theme = ThemePreferenceDropDown.SelectedValue;
             userSettings.ProfileInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
-            userSettings.PhotoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
+            userSettings.PhotoPrivacy = PhotoPrivacyDropDown.SelectedValue;
             userSettings.PersonalContactInfoPrivacy = PrivacyPreferenceDropDown.SelectedValue;
 
             Session.Add("userSettings", userSettings);
