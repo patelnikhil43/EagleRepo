@@ -66,6 +66,7 @@ namespace TermProjectSolution
                 SetUserProfileInformation(RequestingUserEmail);
                 SetFriendList();
                 SetImageGallery(RequestingUserEmail);
+                LoadFeed();
             }
         }
 
@@ -501,6 +502,74 @@ namespace TermProjectSolution
             Response.Redirect(Request.Url.AbsoluteUri);
         }
 
+        void LoadFeed() {
+            //End of decoder
+            var RequestedUserEmail = Request.Cookies["ViewProfile"]["Email"].ToString();
+            ProfileRequest ProfileObject = new ProfileRequest();
+            ProfileObject.Token = "1234";
+            ProfileObject.RequestedEmail = RequestedUserEmail;
+            ProfileObject.RequestingEmail = Session["userEmail"].ToString();
 
+            JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
+            String jsonffObject = js.Serialize(ProfileObject);
+
+            try
+            {
+                // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
+                WebRequest request = WebRequest.Create("http://localhost:55065/api/LoadFeed/GetProfileFeed/");
+                request.Method = "POST";
+                request.ContentLength = jsonffObject.Length;
+                request.ContentType = "application/json";
+
+                // Write the JSON data to the Web Request
+                StreamWriter writer = new StreamWriter(request.GetRequestStream());
+                writer.Write(jsonffObject);
+                writer.Flush();
+                writer.Close();
+
+                // Read the data from the Web Response, which requires working with streams.
+
+                WebResponse response = request.GetResponse();
+                Stream theDataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(theDataStream);
+                String data = reader.ReadToEnd();
+                
+                reader.Close();
+                response.Close();
+
+                Utilities.ProfileFeedClass[] ProfileFeed = js.Deserialize<Utilities.ProfileFeedClass[]>(data);
+                
+                if (ProfileFeed.Length == 0)
+                {
+                    //Profile Info Not Available
+                    NoFeedLabel.Visible = true;
+                }
+                else 
+                {
+                    if (ProfileFeed.Length > 0)
+                    {
+                        for (int i = 0; i < ProfileFeed.Length; i++)
+                        {
+                            ProfileFeed feed = (ProfileFeed)LoadControl("ProfileFeed.ascx");
+                            Posts postObject = new Posts();
+                            postObject.PostID = ProfileFeed[i].postID.ToString();
+                            postObject.UserEmail = ProfileFeed[i].userEmail.ToString();
+                            postObject.PostBody = ProfileFeed[i].postBody.ToString();
+                            postObject.DatePosted = DateTime.Parse(ProfileFeed[i].datePosted.ToString());
+                            postObject.ImageURL = ProfileFeed[i].imageURL.ToString();
+                            feed.DataBind(postObject);
+                            form1.Controls.Add(feed);
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception errorEx)
+            {
+                Response.Write(errorEx.Message);
+            }
+
+        }
     }
 }

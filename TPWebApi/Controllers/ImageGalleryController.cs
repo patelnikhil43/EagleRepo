@@ -23,7 +23,7 @@ namespace TPWebApi.Controllers
             {
                 //Check Requested User Profile Info Privacy Setting
 
-                String settingRetrieved = ProfileObj.CheckRequestedUserPrivacySetting(RequestObject.RequestedEmail);
+                String settingRetrieved = ProfileObj.CheckRequestedUserPhotoSetting(RequestObject.RequestedEmail);
 
                 //Retreive Info
                 return GalleryObject.retrievePhotosList(RequestObject.RequestingEmail, RequestObject.RequestedEmail, settingRetrieved);
