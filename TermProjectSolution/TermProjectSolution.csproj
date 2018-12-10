@@ -75,6 +75,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="LoginPictures.aspx" />
+    <Content Include="loginStyles.css" />
     <Content Include="MessageBox.ascx" />
     <Content Include="MessageConversation.aspx" />
     <Content Include="Messages.aspx" />
