@@ -89,7 +89,6 @@
     <Content Include="ProfileFeed.ascx" />
     <Content Include="Registration.aspx" />
     <Content Include="registrationStyles.css" />
-    <Content Include="Storage\default-profile.png" />
     <Content Include="UpdateProfile.aspx" />
     <Content Include="UserProfile.aspx" />
     <Content Include="Web.config" />
