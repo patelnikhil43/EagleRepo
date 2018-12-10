@@ -139,6 +139,42 @@ namespace TermProjectSolution {
         protected global::System.Web.UI.WebControls.DropDownList ThemePreferenceDropDown;
         
         /// <summary>
+        /// lblRequestNotifcations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRequestNotifcations;
+        
+        /// <summary>
+        /// ddlFriendRequestNotifcations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFriendRequestNotifcations;
+        
+        /// <summary>
+        /// lblMessagesNotifcations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessagesNotifcations;
+        
+        /// <summary>
+        /// ddlMessageNotifcations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMessageNotifcations;
+        
+        /// <summary>
         /// SubmitPreferencesButton control.
         /// </summary>
         /// <remarks>

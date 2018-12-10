@@ -73,6 +73,18 @@
                   <asp:ListItem Text="Dark"  Value="Dark"></asp:ListItem>
             </asp:DropDownList>
             <br />
+             <asp:Label runat="server" Text="Would you like to receive email notifications for friend requests?" ID="lblRequestNotifcations" />
+            <asp:DropDownList ID="ddlFriendRequestNotifcations" ForeColor="Black" runat="server">
+                  <asp:ListItem Text="No" Selected="True" Value="0"></asp:ListItem>
+                  <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
+             <asp:Label runat="server" Text="Would you like to receive email notifications for messages?" ID="lblMessagesNotifcations" />
+            <asp:DropDownList ID="ddlMessageNotifcations" ForeColor="Black" runat="server">
+                  <asp:ListItem Text="No" Selected="True" Value="0"></asp:ListItem>
+                  <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
             <br />
             <asp:Button Text="Submit" CssClass="btnFB" ID="SubmitPreferencesButton" runat="server" OnClick="SubmitPreferencesButton_Click" />
         </div>

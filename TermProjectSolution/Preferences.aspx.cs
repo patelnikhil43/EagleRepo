@@ -77,6 +77,17 @@ namespace TermProjectSolution
 
             Session.Add("userSettings", userSettings);
 
+            //wont work need to have a record in there already
+            //need one to check if exists and then insert
+            objCommand.CommandText = "TPUpdateEmailSettings";
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+            objCommand.Parameters.AddWithValue("@theFriendRequest", ddlFriendRequestNotifcations.SelectedValue);
+            objCommand.Parameters.AddWithValue("@theMessages", ddlMessageNotifcations.SelectedValue);
+
+            dbConnection.DoUpdateUsingCmdObj(objCommand);
+
             //BinaryFormatter serializer = new BinaryFormatter();
             //MemoryStream memoryStream = new MemoryStream();
             //serializer.Serialize(memoryStream, userSettings);
