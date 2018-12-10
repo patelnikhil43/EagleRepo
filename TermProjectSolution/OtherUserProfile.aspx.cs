@@ -123,7 +123,7 @@ namespace TermProjectSolution
             try
             {
                 // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
-                WebRequest request = WebRequest.Create("http://localhost:55065/api/GetProfileInfo/GetProfileInfoMethod/");
+                WebRequest request = WebRequest.Create("http://cis-iis2.temple.edu/Fall2018/CIS3342_tug49083/TermProjectWS/api/GetProfileInfo/GetProfileInfoMethod/");
                 request.Method = "POST";
                 request.ContentLength = jsonffObject.Length;
                 request.ContentType = "application/json";
@@ -202,7 +202,7 @@ namespace TermProjectSolution
             try
             {
                 // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
-                WebRequest request = WebRequest.Create("http://localhost:55065/api/FindFriends/FindFriendsDS/");
+                WebRequest request = WebRequest.Create("http://cis-iis2.temple.edu/Fall2018/CIS3342_tug49083/TermProjectWS/api/FindFriends/FindFriendsDS/");
                 request.Method = "POST";
                 request.ContentLength = jsonffObject.Length;
                 request.ContentType = "application/json";
@@ -258,7 +258,7 @@ namespace TermProjectSolution
             try
             {
                 // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
-                WebRequest request = WebRequest.Create("http://localhost:55065/api/ImageGallery/GetImages/");
+                WebRequest request = WebRequest.Create("http://cis-iis2.temple.edu/Fall2018/CIS3342_tug49083/TermProjectWS/api/ImageGallery/GetImages/");
                 request.Method = "POST";
                 request.ContentLength = jsonffObject.Length;
                 request.ContentType = "application/json";
@@ -516,7 +516,7 @@ namespace TermProjectSolution
             try
             {
                 // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
-                WebRequest request = WebRequest.Create("http://localhost:55065/api/LoadFeed/GetProfileFeed/");
+                WebRequest request = WebRequest.Create("http://cis-iis2.temple.edu/Fall2018/CIS3342_tug49083/TermProjectWS/api/LoadFeed/GetProfileFeed/");
                 request.Method = "POST";
                 request.ContentLength = jsonffObject.Length;
                 request.ContentType = "application/json";
