@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,6 +17,8 @@ namespace TermProjectSolution
 {
     public partial class Registration : System.Web.UI.Page
     {
+        ArrayList UserRegistrationError = new ArrayList();
+        ArrayList UserRegistrationSecurityAnswers = new ArrayList();
         private Byte[] key = { 250, 101, 18, 76, 45, 135, 207, 118, 4, 171, 3, 168, 202, 241, 37, 199 };
         private Byte[] vector = { 146, 64, 191, 111, 23, 3, 113, 119, 231, 121, 252, 112, 79, 32, 114, 156 };
         protected void Page_Load(object sender, EventArgs e)
@@ -23,63 +26,124 @@ namespace TermProjectSolution
 
         }
 
+        void ValidateUserRegistration()
+        {
+            if (RegisterNameTxtBox.Text == "")
+            {
+                UserRegistrationError.Add("Enter Name");
+
+            }
+            if (RegisterAddressTxtBox.Text == "")
+            {
+                UserRegistrationError.Add("Enter Address");
+            }
+            if (CityTxtBox.Text == "") 
+            {
+                UserRegistrationError.Add("Enter City");
+            }
+            if (StateTxtBox.Text == "") 
+            {
+                UserRegistrationError.Add("Enter State");
+            }
+            if (StateTxtBox.Text.Length != 2)
+            {
+                UserRegistrationError.Add("State is 2 Characters like PA, NY or FL");
+            }
+            if (ZipTxtBox.Text == "" || ZipTxtBox.Text.Length < 5 || ZipTxtBox.Text.Length > 5)
+            {
+                UserRegistrationError.Add("Enter Valid Zip Length is 5");
+            }
+            if (RegisterEmailTxtBox.Text == "")
+            {
+                UserRegistrationError.Add("Enter Email");
+            }
+            if (RegisterPasswordTxtBox.Text == "" && RegisterCPasswordTxtBox.Text == "")
+            {
+                UserRegistrationError.Add("Enter Password");
+            }
+            if (RegisterPasswordTxtBox.Text != RegisterCPasswordTxtBox.Text)
+            {
+                UserRegistrationError.Add("Password Don't Match");
+            }
+
+        }
+
         protected void RegisterUserButton_Click(object sender, EventArgs e)
         {
             //Validate
+            ValidateUserRegistration();
 
-            //Check if email already exist
-            String UserEmail = RegisterEmailTxtBox.Text;
-          Boolean flag =  CheckIfEmailExist(UserEmail);
-            if (flag == true)
-            {
-                //Alert User that email exist
-            }
-            else {
-                //Register 
-                DBConnect dbConnection = new DBConnect();
-                SqlCommand objCommand = new SqlCommand();
-                objCommand.CommandType = CommandType.StoredProcedure;
-                objCommand.CommandText = "TPRegisterUser";
-                SqlParameter inputParameter = new SqlParameter("@Email", RegisterEmailTxtBox.Text.ToString());
-                inputParameter.Direction = ParameterDirection.Input;
-                inputParameter.SqlDbType = SqlDbType.NVarChar;
-                objCommand.Parameters.Add(inputParameter);
-                inputParameter = new SqlParameter("@Name", RegisterNameTxtBox.Text.ToString());
-                inputParameter.Direction = ParameterDirection.Input;
-                inputParameter.SqlDbType = SqlDbType.VarChar;
-                objCommand.Parameters.Add(inputParameter);
-                inputParameter = new SqlParameter("@Address", RegisterAddressTxtBox.Text.ToString());
-                inputParameter.Direction = ParameterDirection.Input;
-                inputParameter.SqlDbType = SqlDbType.VarChar;
-                objCommand.Parameters.Add(inputParameter);
-                inputParameter = new SqlParameter("@City", CityTxtBox.Text.ToString());
-                inputParameter.Direction = ParameterDirection.Input;
-                inputParameter.SqlDbType = SqlDbType.VarChar;
-                objCommand.Parameters.Add(inputParameter);
-                inputParameter = new SqlParameter("@Zip", int.Parse(ZipTxtBox.Text.ToString()));
-                inputParameter.Direction = ParameterDirection.Input;
-                inputParameter.SqlDbType = SqlDbType.Int;
-                objCommand.Parameters.Add(inputParameter);
-                inputParameter = new SqlParameter("@Password", RegisterPasswordTxtBox.Text.ToString());
-                inputParameter.Direction = ParameterDirection.Input;
-                inputParameter.SqlDbType = SqlDbType.VarChar;
-
-                objCommand.Parameters.Add(inputParameter);
-               int ResponseReceived = dbConnection.DoUpdateUsingCmdObj(objCommand);
-                if (ResponseReceived == 1)
+            if (UserRegistrationError.Count == 0) {
+                //Check if email already exist
+                String UserEmail = RegisterEmailTxtBox.Text;
+                Boolean flag = CheckIfEmailExist(UserEmail);
+                if (flag == true)
                 {
-                    //User Registered 
-                    //Save UserEmail in Session Called UserEmail
-                    Session.Add("userEmail", RegisterEmailTxtBox.Text.ToString());
-                    RegisterUserDetails.Visible = false;
-                    PrivacyQuestionsDiv.Visible = true;
+                    Response.Write("Email already exist");
+                }
+                else
+                {
+                    //Register 
+                    DBConnect dbConnection = new DBConnect();
+                    SqlCommand objCommand = new SqlCommand();
+                    objCommand.CommandType = CommandType.StoredProcedure;
+                    objCommand.CommandText = "TPRegisterUser";
+                    SqlParameter inputParameter = new SqlParameter("@Email", RegisterEmailTxtBox.Text.ToString());
+                    inputParameter.Direction = ParameterDirection.Input;
+                    inputParameter.SqlDbType = SqlDbType.NVarChar;
+                    objCommand.Parameters.Add(inputParameter);
+                    inputParameter = new SqlParameter("@Name", RegisterNameTxtBox.Text.ToString());
+                    inputParameter.Direction = ParameterDirection.Input;
+                    inputParameter.SqlDbType = SqlDbType.VarChar;
+                    objCommand.Parameters.Add(inputParameter);
+                    inputParameter = new SqlParameter("@Address", RegisterAddressTxtBox.Text.ToString());
+                    inputParameter.Direction = ParameterDirection.Input;
+                    inputParameter.SqlDbType = SqlDbType.VarChar;
+                    objCommand.Parameters.Add(inputParameter);
+                    inputParameter = new SqlParameter("@City", CityTxtBox.Text.ToString());
+                    inputParameter.Direction = ParameterDirection.Input;
+                    inputParameter.SqlDbType = SqlDbType.VarChar;
+                    objCommand.Parameters.Add(inputParameter);
+                    inputParameter = new SqlParameter("@Zip", int.Parse(ZipTxtBox.Text.ToString()));
+                    inputParameter.Direction = ParameterDirection.Input;
+                    inputParameter.SqlDbType = SqlDbType.Int;
+                    objCommand.Parameters.Add(inputParameter);
+                    inputParameter = new SqlParameter("@Password", RegisterPasswordTxtBox.Text.ToString());
+                    inputParameter.Direction = ParameterDirection.Input;
+                    inputParameter.SqlDbType = SqlDbType.VarChar;
+                    objCommand.Parameters.Add(inputParameter);
+                    inputParameter = new SqlParameter("@State", StateTxtBox.Text.ToString());
+                    inputParameter.Direction = ParameterDirection.Input;
+                    inputParameter.SqlDbType = SqlDbType.VarChar;
+                    objCommand.Parameters.Add(inputParameter);
+
+                   
+                    int ResponseReceived = dbConnection.DoUpdateUsingCmdObj(objCommand);
+                    if (ResponseReceived == 1)
+                    {
+                        //User Registered 
+                        //Save UserEmail in Session Called UserEmail
+                        Session.Add("userEmail", RegisterEmailTxtBox.Text.ToString());
+                        RegisterUserDetails.Visible = false;
+                        PrivacyQuestionsDiv.Visible = true;
+
+                    }
+                    else
+                    {
+                        Response.Write("Error Occured on the DATABASE");
+                    }
 
                 }
-                else {
-                    //Error
-                }
-                
             }
+            else
+            {
+                for (int i = 0; i < UserRegistrationError.Count; i++)
+                {
+                    Response.Write(UserRegistrationError[i] + "<br/>");
+                }
+            }
+
+
         }
         public Boolean CheckIfEmailExist(String Email) {
             DBConnect dbConnection = new DBConnect();
@@ -101,55 +165,105 @@ namespace TermProjectSolution
             }
         }
 
+        void ValidateUserQuestions()
+        {
+            if (PrivacyQ1TxtBox.Text == "")
+            {
+                UserRegistrationSecurityAnswers.Add("Enter Question 1");
+
+            }
+            if (PrivacyA1TxtBox.Text == "")
+            {
+                UserRegistrationSecurityAnswers.Add("Enter Answer 1");
+
+            }
+            if (PrivacyQ2TxtBox.Text == "")
+            {
+                UserRegistrationSecurityAnswers.Add("Enter Question 2");
+
+            }
+            if (PrivacyA2TxtBox.Text == "")
+            {
+                UserRegistrationSecurityAnswers.Add("Enter Answer 2");
+
+            }
+            if (PrivacyQ3TxtBox.Text == "")
+            {
+                UserRegistrationSecurityAnswers.Add("Enter Question 3");
+
+            }
+            if (PrivacyA3TxtBox.Text == "")
+            {
+                UserRegistrationSecurityAnswers.Add("Enter Answer 3");
+
+            }
+        }
+
         protected void SecurityButton_Click(object sender, EventArgs e)
         {
+            ValidateUserQuestions();
             //Validate Security Question Answer
-            DBConnect dbConnection = new DBConnect();
-            SqlCommand objCommand = new SqlCommand();
-            objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "TPInsertSecurityQuestion";
-            SqlParameter inputParameter = new SqlParameter("@Email", Session["userEmail"].ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
-            //Question 1
-            inputParameter = new SqlParameter("@Q1", PrivacyQ1TxtBox.Text.ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.VarChar;
-            objCommand.Parameters.Add(inputParameter);
-            //Answer 1 
-            inputParameter = new SqlParameter("@A1", PrivacyA1TxtBox.Text.ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.VarChar;
-            objCommand.Parameters.Add(inputParameter);
-            //Question 2
-            inputParameter = new SqlParameter("@Q2", PrivacyQ2TxtBox.Text.ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.VarChar;
-            objCommand.Parameters.Add(inputParameter);
-            //Answer 2
-            inputParameter = new SqlParameter("@A2", PrivacyA2TxtBox.Text.ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.VarChar;
-            objCommand.Parameters.Add(inputParameter);
-            //Question 3
-            inputParameter = new SqlParameter("@Q3", PrivacyQ3TxtBox.Text.ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.VarChar;
-            objCommand.Parameters.Add(inputParameter);
-            //Answer 3
-            inputParameter = new SqlParameter("@A3", PrivacyA3TxtBox.Text.ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.VarChar;
-            objCommand.Parameters.Add(inputParameter);
 
-            int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
+            if (UserRegistrationSecurityAnswers.Count == 0)
+            {
 
-            if (ResponseRecevied == 1) {
-                //Security Questions Inserted
-                PrivacyQuestionsDiv.Visible = false;
-                PreferencesDiv.Visible = true;
+                DBConnect dbConnection = new DBConnect();
+                SqlCommand objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPInsertSecurityQuestion";
+                SqlParameter inputParameter = new SqlParameter("@Email", Session["userEmail"].ToString());
+                inputParameter.Direction = ParameterDirection.Input;
+                inputParameter.SqlDbType = SqlDbType.NVarChar;
+                objCommand.Parameters.Add(inputParameter);
+                //Question 1
+                inputParameter = new SqlParameter("@Q1", PrivacyQ1TxtBox.Text.ToString());
+                inputParameter.Direction = ParameterDirection.Input;
+                inputParameter.SqlDbType = SqlDbType.VarChar;
+                objCommand.Parameters.Add(inputParameter);
+                //Answer 1 
+                inputParameter = new SqlParameter("@A1", PrivacyA1TxtBox.Text.ToString());
+                inputParameter.Direction = ParameterDirection.Input;
+                inputParameter.SqlDbType = SqlDbType.VarChar;
+                objCommand.Parameters.Add(inputParameter);
+                //Question 2
+                inputParameter = new SqlParameter("@Q2", PrivacyQ2TxtBox.Text.ToString());
+                inputParameter.Direction = ParameterDirection.Input;
+                inputParameter.SqlDbType = SqlDbType.VarChar;
+                objCommand.Parameters.Add(inputParameter);
+                //Answer 2
+                inputParameter = new SqlParameter("@A2", PrivacyA2TxtBox.Text.ToString());
+                inputParameter.Direction = ParameterDirection.Input;
+                inputParameter.SqlDbType = SqlDbType.VarChar;
+                objCommand.Parameters.Add(inputParameter);
+                //Question 3
+                inputParameter = new SqlParameter("@Q3", PrivacyQ3TxtBox.Text.ToString());
+                inputParameter.Direction = ParameterDirection.Input;
+                inputParameter.SqlDbType = SqlDbType.VarChar;
+                objCommand.Parameters.Add(inputParameter);
+                //Answer 3
+                inputParameter = new SqlParameter("@A3", PrivacyA3TxtBox.Text.ToString());
+                inputParameter.Direction = ParameterDirection.Input;
+                inputParameter.SqlDbType = SqlDbType.VarChar;
+                objCommand.Parameters.Add(inputParameter);
+
+                int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
+
+                if (ResponseRecevied == 1)
+                {
+                    //Security Questions Inserted
+                    PrivacyQuestionsDiv.Visible = false;
+                    PreferencesDiv.Visible = true;
+                }
             }
+            else
+            {
+
+                for (int i = 0; i < UserRegistrationSecurityAnswers.Count; i++)
+                {
+                    Response.Write(UserRegistrationSecurityAnswers[i] + "<br/>");
+                }
+            }
+
 
         }
 
