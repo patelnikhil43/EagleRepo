@@ -131,11 +131,11 @@ namespace TermProjectSolution
             String url = UserInfoDataSet.Tables[0].Rows[0]["profilePicURL"].ToString();
             if (url == "NULL")
             {
-                UserProfileImage.ImageUrl = "../Storage/default-profile.png";
+                UserProfileImage.ImageUrl = "Storage\\default-profile.png";
             }
             else
             {
-                UserProfileImage.ImageUrl = "../Storage/" + url;
+                UserProfileImage.ImageUrl = "Storage\\" + url;
             }
         }
 
@@ -247,7 +247,7 @@ namespace TermProjectSolution
 
                 if (extension.ToLower() == ".jpg" || extension.ToLower() == ".png" || extension.ToLower() == ".jpeg")
                 {
-                    ProfileImageUpload.PostedFile.SaveAs(Server.MapPath("~/Storage/") + email + "-ProfileImage.png");
+                    ProfileImageUpload.PostedFile.SaveAs(Server.MapPath(@"Storage\\") + email + "-ProfileImage.png");
                     DBConnect objDB = new DBConnect();
                     SqlCommand objCommand = new SqlCommand();
                     objCommand.CommandType = CommandType.StoredProcedure;

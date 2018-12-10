@@ -30,7 +30,7 @@ namespace TermProjectSolution
             }
             else
             {
-                imgPicture.ImageUrl = "../Storage/" + post.ImageURL.ToString();
+                imgPicture.ImageUrl = "Storage\\" + post.ImageURL.ToString();
             }
         }
     }
