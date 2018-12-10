@@ -83,7 +83,31 @@ namespace TermProjectSolution
 
                 int retVal = objDB.DoUpdateUsingCmdObj(objCommand);
 
-                Response.Write("Update returned: " + retVal);
+                if(retVal > 0)
+                {
+                    objCommand.CommandText = "TPCheckEmailNotifications";
+                    objCommand.Parameters.Clear();
+
+                    objCommand.Parameters.AddWithValue("@theUserEmail", friendEmail);
+                    DataSet myEmail = objDB.GetDataSetUsingCmdObj(objCommand);
+                    if(myEmail.Tables[0].Rows.Count > 0)
+                    {
+                        if(myEmail.Tables[0].Rows[0][1].ToString() == "True")
+                        {
+                            //send the email
+                            Email friendReqEmail = new Email();
+                            String senderAddress = Session["userEmail"].ToString();
+                            String recipientAddress = friendEmail;
+                            String subject = "New Friend Request";
+                            String message = senderAddress + " would like to be friends! Log into Fakebook to accept or deny the request.";
+                            friendReqEmail.SendMail(recipientAddress, senderAddress, subject, message);
+                        }
+                        else 
+                        {
+                            Response.Write("You didn't send an email");
+                        }
+                    }
+                }
             }
         }
 

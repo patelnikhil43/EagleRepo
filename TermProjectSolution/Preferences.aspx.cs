@@ -79,14 +79,34 @@ namespace TermProjectSolution
 
             //wont work need to have a record in there already
             //need one to check if exists and then insert
-            objCommand.CommandText = "TPUpdateEmailSettings";
+            objCommand.CommandText = "TPCheckEmailNotifications";
             objCommand.Parameters.Clear();
 
             objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
-            objCommand.Parameters.AddWithValue("@theFriendRequest", ddlFriendRequestNotifcations.SelectedValue);
-            objCommand.Parameters.AddWithValue("@theMessages", ddlMessageNotifcations.SelectedValue);
+            DataSet myEmail = dbConnection.GetDataSetUsingCmdObj(objCommand);
 
-            dbConnection.DoUpdateUsingCmdObj(objCommand);
+            if (myEmail.Tables[0].Rows.Count > 0)
+            {
+                objCommand.CommandText = "TPUpdateEmailSettings";
+                objCommand.Parameters.Clear();
+
+                objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+                objCommand.Parameters.AddWithValue("@theFriendRequest", ddlFriendRequestNotifcations.SelectedValue);
+                objCommand.Parameters.AddWithValue("@theMessages", ddlMessageNotifcations.SelectedValue);
+
+                dbConnection.DoUpdateUsingCmdObj(objCommand);
+            }
+            else
+            {
+                objCommand.CommandText = "TPInsertEmailSettings";
+                objCommand.Parameters.Clear();
+
+                objCommand.Parameters.AddWithValue("@theUserEmail", Session["userEmail"].ToString());
+                objCommand.Parameters.AddWithValue("@theFriendRequest", ddlFriendRequestNotifcations.SelectedValue);
+                objCommand.Parameters.AddWithValue("@theMessages", ddlMessageNotifcations.SelectedValue);
+
+                dbConnection.DoUpdateUsingCmdObj(objCommand);
+            }
 
             //BinaryFormatter serializer = new BinaryFormatter();
             //MemoryStream memoryStream = new MemoryStream();

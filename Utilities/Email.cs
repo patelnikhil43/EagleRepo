@@ -66,7 +66,7 @@ namespace Utilities
             set { this.mailHost = value; }
         }
 
-        public void SendMail(String recipient, String sender, String subject, String body, String cc = "", String bcc = "")
+        public String SendMail(String recipient, String sender, String subject, String body, String cc = "", String bcc = "")
         {
             try
             {
@@ -96,10 +96,11 @@ namespace Utilities
 
                 SmtpClient smtpMailClient = new SmtpClient(this.mailHost);
                 smtpMailClient.Send(objMail);
+                return "Mail sent!";
             }
             catch (Exception ex)
             {
-                throw ex;
+                return ex.Message;
             }
 
         }

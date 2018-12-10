@@ -95,6 +95,29 @@ namespace TermProjectSolution
 
                 objDB.DoUpdateUsingCmdObj(objCommand);
                 getFriendRequests();
+
+                objCommand.CommandText = "TPCheckEmailNotifications";
+                objCommand.Parameters.Clear();
+
+                objCommand.Parameters.AddWithValue("@theUserEmail", gvFriendRequests.Rows[0].Cells[0].Text);
+                DataSet myEmail = objDB.GetDataSetUsingCmdObj(objCommand);
+                if (myEmail.Tables[0].Rows.Count > 0)
+                {
+                    if (myEmail.Tables[0].Rows[0][1].ToString() == "True")
+                    {
+                        //send the email
+                        Email friendEmail = new Email();
+                        String senderAddress = Session["userEmail"].ToString();
+                        String recipientAddress = gvFriendRequests.Rows[0].Cells[0].Text;
+                        String subject = "Friend Request Accepted";
+                        String message = senderAddress + " accepted your friend request!";
+                        friendEmail.SendMail(recipientAddress, senderAddress, subject, message);
+                    }
+                    else
+                    {
+                        Response.Write("You didn't send an email");
+                    }
+                }
             }
             else
             {
@@ -118,6 +141,29 @@ namespace TermProjectSolution
 
             objDB.DoUpdateUsingCmdObj(objCommand);
             getFriendRequests();
+
+            objCommand.CommandText = "TPCheckEmailNotifications";
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@theUserEmail", gvFriendRequests.Rows[0].Cells[0].Text);
+            DataSet myEmail = objDB.GetDataSetUsingCmdObj(objCommand);
+            if (myEmail.Tables[0].Rows.Count > 0)
+            {
+                if (myEmail.Tables[0].Rows[0][1].ToString() == "True")
+                {
+                    //send the email
+                    Email friendEmail = new Email();
+                    String senderAddress = Session["userEmail"].ToString();
+                    String recipientAddress = gvFriendRequests.Rows[0].Cells[0].Text;
+                    String subject = "Friend Request Rejected";
+                    String message = senderAddress + " rejected your friend request. :(";
+                    friendEmail.SendMail(recipientAddress, senderAddress, subject, message);
+                }
+                else
+                {
+                    Response.Write("You didn't send an email");
+                }
+            }
         }
 
         protected void btnRefresh_Click(object sender, EventArgs e)

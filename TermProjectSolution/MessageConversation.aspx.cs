@@ -87,15 +87,31 @@ namespace TermProjectSolution
                 if (retVal == 1)
                 {
                     lblSendMessage.Text = "Message sent to " + Session["friendEmail"].ToString();
-                    //int controlCount = Form.Controls.Count;
-                    //if (controlCount > 4)
-                    //{
-                    //    for (int i = 4; i < controlCount; i++)
-                    //    {
-                    //        Form.Controls.RemoveAt(i);
-                    //    }
-                    //}
                     LoadMessages();
+
+                    objCommand.CommandText = "TPCheckEmailNotifications";
+                    objCommand.Parameters.Clear();
+
+                    objCommand.Parameters.AddWithValue("@theUserEmail", Session["friendEmail"].ToString());
+                    DataSet myEmail = objDB.GetDataSetUsingCmdObj(objCommand);
+                    if (myEmail.Tables[0].Rows.Count > 0)
+                    {
+                        if (myEmail.Tables[0].Rows[0][1].ToString() == "True")
+                        {
+                            //send the email
+                            Email friendEmail = new Email();
+                            String senderAddress = Session["userEmail"].ToString();
+                            String recipientAddress = Session["friendEmail"].ToString();
+                            String subject = "New Message";
+                            String message = senderAddress + " sent you a message. Log in to Fakebook to view it!";
+                            friendEmail.SendMail(recipientAddress, senderAddress, subject, message);
+                        }
+                        else
+                        {
+                            Response.Write("You didn't send an email");
+                        }
+                    }
+
                 }
                 else
                 {
