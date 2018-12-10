@@ -37,26 +37,28 @@
         </div>
         <div>
             <div id="searchContainer">
-                <div class="row" style="margin-left: 2px;">
-                    <div class="col-md-4">
-                        <asp:Label ID="lblSearch" runat="server" Text="Search for a friend by name:"></asp:Label>
-                        <br />
-                        <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                <asp:Panel ID="p" runat="server" DefaultButton="btnSearch">
+                    <div class="row" style="margin-left: 2px;">
                         <div class="col-md-4">
-                            <asp:Button ID="btnSearch" CssClass="btnFB" runat="server" Text="Search" OnClick="btnSearch_Click" />
-                        </div>
-                        <div class="col-md-4">
-                            <asp:Button ID="btnCancel" CssClass="btnFB" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
-                        </div>
-                        <div class="col-md-4">
-                            <asp:Button ID="btnAdvancedSearch" CssClass="btnFB" runat="server" Text="Advanced Search" OnClick="btnAdvancedSearch_Click" />
+                            <asp:Label ID="lblSearch" runat="server" Text="Search for a friend by name:"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-4">
+                                <asp:Button ID="btnSearch" CssClass="btnFB" runat="server" Text="Search" OnClick="btnSearch_Click" />
+                            </div>
+                            <div class="col-md-4">
+                                <asp:Button ID="btnCancel" CssClass="btnFB" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
+                            </div>
+                            <div class="col-md-4">
+                                <asp:Button ID="btnAdvancedSearch" CssClass="btnFB" runat="server" Text="Advanced Search" OnClick="btnAdvancedSearch_Click" />
+                            </div>
+                        </div>
+                    </div>
+                </asp:Panel>
             </div>
             <br />
             <div id="advancedSearchContainer" runat="server" visible="false">
