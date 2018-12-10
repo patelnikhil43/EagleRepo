@@ -195,7 +195,7 @@ namespace TermProjectSolution
                 response.Close();
 
                 FindFriendsClass[] FriensdListArray = js.Deserialize<FindFriendsClass[]>(data);
-
+                 
                 //Retrieve Own Feed
                
 
