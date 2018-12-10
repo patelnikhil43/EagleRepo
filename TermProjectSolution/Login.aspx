@@ -6,34 +6,10 @@
 <head runat="server">
     <title></title>
     <link rel="stylesheet" href="loginStyles.css" />
+    <link rel="stylesheet" href="fbStyles.css" />
 </head>
 <body>
-    <script type="text/javascript">
-        var xmlhttp;
-
-        if (window.XMLHttpRequest) {
-            // Code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        }
-        else {
-            // Code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        function getPicture() {
-            // Open a new asynchronous request, set the callback function, and send the request.
-            xmlhttp.open("POST", "LoginPictures.aspx", true);
-            xmlhttp.onreadystatechange = onComplete;
-            xmlhttp.send();
-        }
-
-        function onComplete() {
-            //Response is READY and Status is OK
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("loginImage").src = xmlhttp.responseText;
-            }
-        }
-    </script>
+   
     <form id="form1" runat="server">
         <div id="SignInDiv">
             <%--<asp:Label runat="server" ID="UserNameLabel">User Name:</asp:Label>
@@ -73,8 +49,6 @@
             <asp:RadioButton ID="rdoFastLogin" GroupName="loginMode" Text="Remember Username" runat="server" />
             <asp:RadioButton ID="rdoAutoLogin" GroupName="loginMode" Text="Auto Login" runat="server" />
         </div>
-        <asp:Image ID="loginImage" runat="server" />
-        <asp:Button ID="btnNewImage" runat="server" Text="New Image" OnClientClick="getPicture()" />
     </form>
 
 </body>
