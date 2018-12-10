@@ -5,11 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Profile.css" type="text/css" />
+    <link rel="stylesheet" href="fbStyles.css" type="text/css" />
 </head>
 <body>
      <nav class="navbar navbar-default">
@@ -53,7 +54,7 @@
 
              <asp:Label Text="No Friends Found, Make Friends!" ID="NoFriendsLabel" runat="server" visible="false"/>
 
-            <asp:GridView ID="FriendListGV" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand" >
+            <asp:GridView ID="FriendListGV" CssClass="gvFB" runat="server"  AutoGenerateColumns="False" OnRowCommand="FriendListGV_RowCommand" >
                 <Columns>
                   <%--  <asp:TemplateField>
                         <ItemTemplate>
@@ -107,7 +108,7 @@
 
         <div class="threediv">
             <asp:Label Text="No Images Available" ID="NoImagesLabel" runat="server" Visible="false"/>
-             <asp:GridView runat="server" ID="ImageGalleryGV" AutoGenerateColumns="False">
+             <asp:GridView runat="server"  CssClass="gvFB" ID="ImageGalleryGV" AutoGenerateColumns="False">
                 <Columns>
                    
                      <asp:TemplateField HeaderText="Your Images">
