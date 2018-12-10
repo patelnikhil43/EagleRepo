@@ -375,36 +375,8 @@ namespace TermProjectSolution
 
         protected void PostButton_Click(object sender, EventArgs e)
         {
-            //Get User Email
-            //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
-
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
-
-            UTF8Encoding encoder = new UTF8Encoding();
-
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
-
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
-
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
-
-            decryptionStream.Close();
-            memStream.Close();
-
-            plainTextEmail = encoder.GetString(emailBytes);
-            String VisitingUser = plainTextEmail;
+           
+            String VisitingUser = Session["userEmail"].ToString();
             //End of Decoder
 
             ArrayList ImagePostErrorArray = new ArrayList();
