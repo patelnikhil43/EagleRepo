@@ -27,10 +27,10 @@ namespace TermProjectSolution
             for (int i = 0; i < gvSearchResults.Rows.Count; i++)
             {
                 Image myProfilePic = (Image)gvSearchResults.Rows[i].FindControl("imgProfilePic");
-                myProfilePic.ImageUrl = "../Storage/" + objDB.GetField("profilePicUrl", i).ToString();
-                if (myProfilePic.ImageUrl == "../Storage/")
+                myProfilePic.ImageUrl = "Storage\\" + objDB.GetField("profilePicUrl", i).ToString();
+                if (myProfilePic.ImageUrl == "Storage\\")
                 {
-                    myProfilePic.ImageUrl = "../Storage/default-profile.png";
+                    myProfilePic.ImageUrl = "Storage\\default-profile.png";
                 }
             }
         }

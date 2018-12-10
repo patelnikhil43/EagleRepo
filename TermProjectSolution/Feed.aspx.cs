@@ -124,7 +124,7 @@ namespace TermProjectSolution
 
                 if (extension.ToLower() == ".jpg" || extension.ToLower() == ".png" || extension.ToLower() == ".jpeg")
                 {
-                    FileImageUpload.PostedFile.SaveAs(Server.MapPath("~/Storage/") + email + "-Post" + timeStamp + ".png");
+                    FileImageUpload.PostedFile.SaveAs(Server.MapPath(@"Storage\\") + email + "-Post" + timeStamp + ".png");
                     DBConnect objDB = new DBConnect();
                     SqlCommand objCommand = new SqlCommand();
                     objCommand.CommandType = CommandType.StoredProcedure;

@@ -97,11 +97,11 @@ namespace TermProjectSolution
             String url = UserInfoDataSet.Tables[0].Rows[0]["profilePicURL"].ToString();
             if (url == "")
             {
-                UserProfileImage.ImageUrl = "../Storage/default-profile.png";
+                UserProfileImage.ImageUrl = "Storage\\default-profile.png";
             }
             else
             {
-                UserProfileImage.ImageUrl = "../Storage/" + url;
+                UserProfileImage.ImageUrl = "Storage\\" + url;
             }
 
         }
@@ -293,7 +293,7 @@ namespace TermProjectSolution
                     for (int i = 0; i < ImageGalleryGV.Rows.Count; i++)
                     {
                      Image PhotoCollectionImage = (Image)ImageGalleryGV.Rows[i].FindControl("GalleryCollectionImages");
-                     var tempURL = "../Storage/" + (ImageGalleryGV.Rows[i].FindControl("GalleryImageURL") as Label).Text;
+                     var tempURL = "Storage\\" + (ImageGalleryGV.Rows[i].FindControl("GalleryImageURL") as Label).Text;
                         PhotoCollectionImage.ImageUrl = tempURL;
                     }
 
@@ -461,7 +461,7 @@ namespace TermProjectSolution
 
                 if (extension.ToLower() == ".jpg" || extension.ToLower() == ".png" || extension.ToLower() == ".jpeg")
                 {
-                    FileImageUpload.PostedFile.SaveAs(Server.MapPath("~/Storage/") + VisitedUser + "-Post" + timeStamp + ".png");
+                    FileImageUpload.PostedFile.SaveAs(Server.MapPath(@"Storage\\") + VisitedUser + "-Post" + timeStamp + ".png");
                     DBConnect objDB = new DBConnect();
                     SqlCommand objCommand = new SqlCommand();
                     objCommand.CommandType = CommandType.StoredProcedure;

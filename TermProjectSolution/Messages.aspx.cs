@@ -94,10 +94,10 @@ namespace TermProjectSolution
                 for(int i = 0; i < gvFriendsOnline.Rows.Count; i++)
                 {
                     Image myProfilePic = (Image)gvFriendsOnline.Rows[i].FindControl("imgProfilePic");
-                    myProfilePic.ImageUrl = "../Storage/" + objDB.GetField("profilePicUrl", i).ToString();
-                    if(myProfilePic.ImageUrl == "../Storage/")
+                    myProfilePic.ImageUrl = "Storage\\" + objDB.GetField("profilePicUrl", i).ToString();
+                    if(myProfilePic.ImageUrl == "Storage\\")
                     {
-                        myProfilePic.ImageUrl = "../Storage/default-profile.png";
+                        myProfilePic.ImageUrl = "Storage\\default-profile.png";
                     }
                 }
             }
