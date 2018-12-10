@@ -94,7 +94,7 @@ namespace TermProjectSolution
                 objCommand.Parameters.AddWithValue("@theFriendEmail", Session["userEmail"].ToString());
 
                 objDB.DoUpdateUsingCmdObj(objCommand);
-                getFriendRequests();
+                
 
                 objCommand.CommandText = "TPCheckEmailNotifications";
                 objCommand.Parameters.Clear();
@@ -118,6 +118,8 @@ namespace TermProjectSolution
                         Response.Write("You didn't send an email");
                     }
                 }
+
+                getFriendRequests();
             }
             else
             {
