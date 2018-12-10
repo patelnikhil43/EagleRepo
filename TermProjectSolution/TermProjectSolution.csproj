@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="fbStyles.css" />
     <Content Include="Feed.aspx" />
+    <Content Include="FeedStyle.css" />
     <Content Include="FindFriends.aspx" />
     <Content Include="FriendRequests.aspx" />
     <Content Include="Global.asax" />

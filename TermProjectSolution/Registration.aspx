@@ -66,7 +66,7 @@
                   <asp:ListItem Text="Fast-Login"  Value="Fast-Login"></asp:ListItem>
             </asp:DropDownList>
             <br />
-             <asp:Label runat="server" Text="Privacy Preference: " ID="PrivacyPreferenceLabel" />
+             <asp:Label runat="server" Text="Profile Info Preference: " ID="PrivacyPreferenceLabel" />
             <asp:DropDownList ID="PrivacyPreferenceDropDown" runat="server">
                   <asp:ListItem Text="Public" Selected="True" Value="Public"></asp:ListItem>
                   <asp:ListItem Text="Friends" Value="Friends"></asp:ListItem>
