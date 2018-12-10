@@ -237,9 +237,6 @@ namespace TermProjectSolution
 
         void SetFriendList(String email)
         {
-           
-
-
             FindFriendsClass ffObject = new FindFriendsClass();
             ffObject.userEmail = email;
             JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
@@ -271,10 +268,7 @@ namespace TermProjectSolution
                 FindFriendsClass[] CreditInfoData = js.Deserialize<FindFriendsClass[]>(data);
                 FriendListGV.DataSource = CreditInfoData;
                 FriendListGV.DataBind();
-
-
-
-
+                
             }
             catch (Exception errorEx)
             {

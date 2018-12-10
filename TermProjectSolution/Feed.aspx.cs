@@ -8,6 +8,9 @@ using Utilities;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
+using System.Web.Script.Serialization;
+using System.Net;
+using System.IO;
 
 namespace TermProjectSolution
 {
@@ -27,6 +30,7 @@ namespace TermProjectSolution
                 myCookie.Values["email"] = Session["userEmail"].ToString();
                 myCookie.Expires = new DateTime(2020, 2, 1);
                 Response.Cookies.Add(myCookie);
+                LoadFeed(Session["userEmail"].ToString());
             }
         }
 
@@ -158,5 +162,109 @@ namespace TermProjectSolution
             objDB.DoUpdateUsingCmdObj(objCommand);
             Response.Redirect(Request.Url.AbsoluteUri);
         }
+
+        void LoadFeed(String userEmail) {
+
+
+            FindFriendsClass ffObject = new FindFriendsClass();
+            ffObject.userEmail = userEmail;
+            JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
+            String jsonffObject = js.Serialize(ffObject);
+            try
+            {
+                // Setup an HTTP POST Web Request and get the HTTP Web Response from the server.
+                WebRequest request = WebRequest.Create("http://localhost:55065/api/FindFriends/FindFriendsDS/");
+                request.Method = "POST";
+                request.ContentLength = jsonffObject.Length;
+                request.ContentType = "application/json";
+
+                // Write the JSON data to the Web Request
+                StreamWriter writer = new StreamWriter(request.GetRequestStream());
+                writer.Write(jsonffObject);
+                writer.Flush();
+                writer.Close();
+
+                // Read the data from the Web Response, which requires working with streams.
+
+                WebResponse response = request.GetResponse();
+                Stream theDataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(theDataStream);
+                String data = reader.ReadToEnd();
+
+                reader.Close();
+                response.Close();
+
+                FindFriendsClass[] FriensdListArray = js.Deserialize<FindFriendsClass[]>(data);
+                 
+                //Retrieve Own Feed
+               
+
+
+                if (FriensdListArray.Length == 0) {
+                    //No Friends Found
+                }
+                if (FriensdListArray.Length > 0) {
+                    for (int i = 0; i < FriensdListArray.Length; i++) {
+                      
+                        DBConnect objDB = new DBConnect();
+                        SqlCommand objCommand = new SqlCommand();
+                        objCommand.CommandType = CommandType.StoredProcedure;
+                        objCommand.CommandText = "TP_LoadRegularFeed";
+                        objCommand.Parameters.AddWithValue("@Email", FriensdListArray[i].userEmail);
+                        DataSet FeedDS = objDB.GetDataSetUsingCmdObj(objCommand);
+                        if (FeedDS.Tables[0].Rows.Count > 0)
+                        {
+                            for (int n = 0; n < FeedDS.Tables[0].Rows.Count; n++)
+                            {
+                                ProfileFeed feed = (ProfileFeed)LoadControl("ProfileFeed.ascx");
+                                Posts postObject = new Posts();
+                                postObject.PostID = FeedDS.Tables[0].Rows[n][0].ToString();
+                                postObject.UserEmail = FeedDS.Tables[0].Rows[n][1].ToString();
+                                postObject.PostBody = FeedDS.Tables[0].Rows[n][2].ToString();
+                                postObject.DatePosted = DateTime.Parse(FeedDS.Tables[0].Rows[n][4].ToString());
+                                postObject.ImageURL = FeedDS.Tables[0].Rows[n][3].ToString();
+                                feed.DataBind(postObject);
+                                form1.Controls.Add(feed);
+                            }
+                        }
+                    }
+                }
+
+                //Retrieve Users Own Feed
+
+                DBConnect dbConnection = new DBConnect();
+                SqlCommand objCommand1 = new SqlCommand();
+                objCommand1.CommandType = CommandType.StoredProcedure;
+                objCommand1.CommandText = "TP_LoadProfileFeed";
+                objCommand1.Parameters.AddWithValue("@Email", userEmail);
+                DataSet UserFeedDS = dbConnection.GetDataSetUsingCmdObj(objCommand1);
+
+                if (UserFeedDS.Tables[0].Rows.Count == 0) {
+                    //No Feed Available
+                }
+                if (UserFeedDS.Tables[0].Rows.Count > 0)
+                {
+                    for (int n = 0; n < UserFeedDS.Tables[0].Rows.Count; n++)
+                    {
+                        ProfileFeed feed1 = (ProfileFeed)LoadControl("ProfileFeed.ascx");
+                        Posts postObject = new Posts();
+                        postObject.PostID = UserFeedDS.Tables[0].Rows[n][0].ToString();
+                        postObject.UserEmail = UserFeedDS.Tables[0].Rows[n][1].ToString();
+                        postObject.PostBody = UserFeedDS.Tables[0].Rows[n][2].ToString();
+                        postObject.DatePosted = DateTime.Parse(UserFeedDS.Tables[0].Rows[n][4].ToString());
+                        postObject.ImageURL = UserFeedDS.Tables[0].Rows[n][3].ToString();
+                        feed1.DataBind(postObject);
+                        form1.Controls.Add(feed1);
+                    }
+                }
+
+            }
+            catch (Exception errorEx)
+            {
+                Response.Write(errorEx.Message);
+            }
+        }
+
+
     }
 }
