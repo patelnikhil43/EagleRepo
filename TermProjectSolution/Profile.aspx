@@ -17,7 +17,7 @@
         $(document).ready(function () {
             var email = $.cookie('ViewProfile');
             $.ajax({
-                url: "http://localhost:55065/api/GetProfileInfo/GetName/" + email,
+                url: "http://cis-iis2.temple.edu/Fall2018/CIS3342_tug49083/TermProjectWS/api/GetProfileInfo/GetName/" + email,
                 type: 'GET',
                 success: function (name) {
                     document.getElementById("UserNameLabel").innerText = name;
