@@ -19,6 +19,9 @@
             <asp:Label runat="server" text="City*" ID="CityLabel"></asp:Label>
             <asp:TextBox runat="server" placeholder="New York" id="CityTxtBox"></asp:TextBox>
             <br />
+             <asp:Label runat="server" text="State*" ID="StateLabel"></asp:Label>
+            <asp:TextBox runat="server" placeholder="PA" id="StateTxtBox"></asp:TextBox>
+            <br />
             <asp:Label runat="server" text="Zip*" ID="ZipLabel"></asp:Label>
             <asp:TextBox runat="server" placeholder="19122" id="ZipTxtBox"></asp:TextBox>
             <br />
