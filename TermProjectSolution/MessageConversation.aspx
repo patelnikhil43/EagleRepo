@@ -14,24 +14,21 @@
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">WebSiteName</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Page 1-1</a></li>
-                        <li><a href="#">Page 1-2</a></li>
-                        <li><a href="#">Page 1-3</a></li>
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Fakebook</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="Feed.aspx">Feed</a></li>
+                        <li><a href="Profile.aspx">My Profile</a></li>
+                        <li><a href="Preferences.aspx">Preferences</a></li>
+                        <li><a href="FindFriends.aspx">Find Friends</a></li>
+                        <li><a href="FriendRequests.aspx">Friend Requests</a></li>
+                        <li class="active"><a href="Messages.aspx">Messages</a></li>
                     </ul>
-                </li>
-                <li><a href="FindFriends.aspx">Find Friends</a></li>
-                <li><a href="Preferences.aspx">Preferences</a></li>
-                <li><a href="FriendRequests.aspx">Friend Requests</a></li>
-                <li><a href="Messages.aspx">Messages</a></li>
-                <li><a href="Profile.aspx">My Profile</a></li>
-            </ul>
+                </div>
+            </div>
         </div>
     </nav>
     <form id="form1" runat="server">
