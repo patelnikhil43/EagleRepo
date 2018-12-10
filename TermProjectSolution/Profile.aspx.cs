@@ -537,36 +537,45 @@ namespace TermProjectSolution
         }
         void SetStatusTagFriendsList() {
             //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
+            //HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            ////txtEmail.Text = myCookie.Values["Email"];
+            ////txtPassword.Text = myCookie.Values["Password"];
+            //String encryptedEmail = myCookie.Values["Email"];
 
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
+            //Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            //Byte[] emailBytes;
+            //String plainTextEmail;
 
-            UTF8Encoding encoder = new UTF8Encoding();
+            //UTF8Encoding encoder = new UTF8Encoding();
 
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+            //RijndaelManaged rmEncryption = new RijndaelManaged();
+            //MemoryStream memStream = new MemoryStream();
+            //CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
 
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
+            ////Email
+            //decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            //decryptionStream.FlushFinalBlock();
 
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
+            //memStream.Position = 0;
+            //emailBytes = new Byte[memStream.Length];
+            //memStream.Read(emailBytes, 0, emailBytes.Length);
 
-            decryptionStream.Close();
-            memStream.Close();
+            //decryptionStream.Close();
+            //memStream.Close();
 
-            plainTextEmail = encoder.GetString(emailBytes);
-            String email = plainTextEmail;
-            //End of decoder
+            //plainTextEmail = encoder.GetString(emailBytes);
+            //String email = plainTextEmail;
+            ////End of decoder
 
+            String email = "";
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
+            else
+            {
+                email = Session["userEmail"].ToString();
+            }
 
             FindFriendsClass ffObject = new FindFriendsClass();
             ffObject.userEmail = email;
@@ -639,36 +648,45 @@ namespace TermProjectSolution
         protected void UploadImageGalleryButton_Click(object sender, EventArgs e)
         {
 
-            //Decoder
-            HttpCookie myCookie = Request.Cookies["LoginCookie"];
-            //txtEmail.Text = myCookie.Values["Email"];
-            //txtPassword.Text = myCookie.Values["Password"];
-            String encryptedEmail = myCookie.Values["Email"];
+            ////Decoder
+            //HttpCookie myCookie = Request.Cookies["LoginCookie"];
+            ////txtEmail.Text = myCookie.Values["Email"];
+            ////txtPassword.Text = myCookie.Values["Password"];
+            //String encryptedEmail = myCookie.Values["Email"];
 
-            Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-            Byte[] emailBytes;
-            String plainTextEmail;
+            //Byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
+            //Byte[] emailBytes;
+            //String plainTextEmail;
 
-            UTF8Encoding encoder = new UTF8Encoding();
+            //UTF8Encoding encoder = new UTF8Encoding();
 
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+            //RijndaelManaged rmEncryption = new RijndaelManaged();
+            //MemoryStream memStream = new MemoryStream();
+            //CryptoStream decryptionStream = new CryptoStream(memStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
 
-            //Email
-            decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-            decryptionStream.FlushFinalBlock();
+            ////Email
+            //decryptionStream.Write(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
+            //decryptionStream.FlushFinalBlock();
 
-            memStream.Position = 0;
-            emailBytes = new Byte[memStream.Length];
-            memStream.Read(emailBytes, 0, emailBytes.Length);
+            //memStream.Position = 0;
+            //emailBytes = new Byte[memStream.Length];
+            //memStream.Read(emailBytes, 0, emailBytes.Length);
 
-            decryptionStream.Close();
-            memStream.Close();
+            //decryptionStream.Close();
+            //memStream.Close();
 
-            plainTextEmail = encoder.GetString(emailBytes);
-            String email = plainTextEmail;
-            //End of decoder
+            //plainTextEmail = encoder.GetString(emailBytes);
+            //String email = plainTextEmail;
+            ////End of decoder
+           String email = "";
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
+            else
+            {
+                email = Session["userEmail"].ToString();
+            }
 
             if (FileUploadImageGallery.HasFile)
             {

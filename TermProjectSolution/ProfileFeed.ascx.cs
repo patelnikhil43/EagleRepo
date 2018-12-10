@@ -20,7 +20,7 @@ namespace TermProjectSolution
 
         public void DataBind(Posts post)
         {
-            lblPoster.Text = post.UserEmail;
+            lblPoster.Text = "Posted By: " + post.UserEmail;
             lblPostCaption.Text = post.PostBody;
             lblPostDate.Text = post.DatePosted.ToString();
             lblPostID.Text = post.PostID.ToString();

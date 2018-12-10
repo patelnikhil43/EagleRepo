@@ -158,37 +158,16 @@ namespace TermProjectSolution
             //No Need for Validation
             DBConnect dbConnection = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
+
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPInsertUserPreference";
-            SqlParameter inputParameter = new SqlParameter("@Email", Session["UserEmail"].ToString());
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
+            objCommand.Parameters.AddWithValue("@Email", Session["userEmail"].ToString());
+            objCommand.Parameters.AddWithValue("@Login", LoginPreferenceDropDown.SelectedValue);
+            objCommand.Parameters.AddWithValue("@Theme", ThemePreferenceDropDown.SelectedValue);
+            objCommand.Parameters.AddWithValue("@ProfileInfoPrivacy", PrivacyPreferenceDropDown.SelectedValue);
+            objCommand.Parameters.AddWithValue("@PhotoPrivacy", PhotoPrivacyDropDown.SelectedValue);
+            objCommand.Parameters.AddWithValue("@FeedPrivacy", FeedPrivacyDropDown.SelectedValue);
 
-            inputParameter = new SqlParameter("@Login", LoginPreferenceDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
-
-            inputParameter = new SqlParameter("@Theme", ThemePreferenceDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
-
-            inputParameter = new SqlParameter("@ProfileInfoPrivacy", PrivacyPreferenceDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
-
-            inputParameter = new SqlParameter("@PhotoPrivacy", PhotoPrivacyDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
-
-            inputParameter = new SqlParameter("@FeedPrivacy", FeedPrivacyDropDown.SelectedValue);
-            inputParameter.Direction = ParameterDirection.Input;
-            inputParameter.SqlDbType = SqlDbType.NVarChar;
-            objCommand.Parameters.Add(inputParameter);
 
             int ResponseRecevied = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
