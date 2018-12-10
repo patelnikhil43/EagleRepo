@@ -27,6 +27,7 @@ namespace TermProjectSolution
                 myCookie.Values["email"] = Session["userEmail"].ToString();
                 myCookie.Expires = new DateTime(2020, 2, 1);
                 Response.Cookies.Add(myCookie);
+                LoadFeed();
             }
         }
 
@@ -158,5 +159,11 @@ namespace TermProjectSolution
             objDB.DoUpdateUsingCmdObj(objCommand);
             Response.Redirect(Request.Url.AbsoluteUri);
         }
+
+        void LoadFeed() {
+
+        }
+
+
     }
 }
